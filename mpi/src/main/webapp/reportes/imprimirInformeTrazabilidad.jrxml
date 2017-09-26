@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="imprimirInformeTrazabilidad" language="groovy" pageWidth="612" pageHeight="792" columnWidth="556" leftMargin="28" rightMargin="28" topMargin="22" bottomMargin="28" uuid="8af75068-6ed5-4475-b5ad-d8d0ce9d0930">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="pDespacho" class="java.lang.Object"/>
+	<parameter name="pLogo1" class="java.lang.String"/>
+	<parameter name="pLogo2" class="java.lang.String"/>
+	<parameter name="pFechaInicial" class="java.util.Date"/>
+	<parameter name="pFechaFinal" class="java.util.Date"/>
+	<field name="fecha" class="java.util.Date"/>
+	<field name="hora" class="java.lang.Integer"/>
+	<field name="minuto" class="java.lang.Integer"/>
+	<field name="segundo" class="java.lang.Integer"/>
+	<field name="tNumeroEntregaCadena" class="java.lang.String"/>
+	<field name="pedido" class="java.lang.String"/>
+	<field name="numeroRemision" class="java.lang.String"/>
+	<pageHeader>
+		<band height="130">
+			<staticText>
+				<reportElement uuid="c27dbaa8-8b38-46b4-895b-776e6c67c140" x="85" y="56" width="447" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[COLOMBIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c27dbaa8-8b38-46b4-895b-776e6c67c140" x="85" y="14" width="447" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NIT. 890204814-4]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="b4989840-616f-4fb4-9c56-08a47f97ce17" x="359" y="89" width="97" height="38"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="c27dbaa8-8b38-46b4-895b-776e6c67c140" x="85" y="36" width="447" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[FLORIDABLANCA KM 2 ANILLO VIAL FLORIDA - GIRON ECOPARQUE NATURA Torre 1 Ofi. 515 Tel. 6788888]]></text>
+			</staticText>
+			<image hAlign="Center" onErrorType="Blank">
+				<reportElement uuid="97d0b404-45a6-458a-a5c5-48c9d977390a" x="187" y="88" width="164" height="40"/>
+				<imageExpression><![CDATA[$P{pLogo2}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="c27dbaa8-8b38-46b4-895b-776e6c67c140" x="85" y="26" width="447" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[BARRANCABERMEJA Cra 19 No 72 - 46 LA LIBERTAD Tel. (57-7)6228725 - 6228726 Fax 6010125
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="79a67d58-2207-490a-800f-e1c6505438b0" x="85" y="0" width="447" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MANUFACTURAS Y PROCESOS INDUSTRIALES LTDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c27dbaa8-8b38-46b4-895b-776e6c67c140" x="85" y="45" width="447" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[E-mail direccioncomercial@mpi.net.co www.mpi.net.co]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="b4989840-616f-4fb4-9c56-08a47f97ce17" x="456" y="89" width="97" height="38"/>
+			</rectangle>
+			<textField pattern="dd/MM/yy" isBlankWhenNull="true">
+				<reportElement uuid="0c0d7d27-c1b8-4c5a-a992-76ff2ccc5a0a" x="456" y="110" width="97" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pFechaFinal}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Left" onErrorType="Blank">
+				<reportElement uuid="9eae9bd4-c639-4fdd-8af4-ff43c2d1e242" x="0" y="0" width="74" height="46"/>
+				<imageExpression><![CDATA[$P{pLogo1}]]></imageExpression>
+			</image>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="0c0d7d27-c1b8-4c5a-a992-76ff2ccc5a0a" x="359" y="110" width="97" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pFechaInicial}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement uuid="f7b003c9-c795-464d-a8d2-318b4b37f7d5" x="359" y="89" width="97" height="20" backcolor="#CCCCCC"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="5ab24ba2-7897-4d6a-aab3-df7a19d92ebc" x="456" y="89" width="97" height="20" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="357" y="86" width="92" height="28"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA MÍNIMA RESULTADOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="459" y="86" width="92" height="28"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA MÁXIMA RESULTADOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c27dbaa8-8b38-46b4-895b-776e6c67c140" x="85" y="68" width="447" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INFORME DE TRAZABILIDAD]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="24">
+			<rectangle>
+				<reportElement uuid="5aca6893-09a6-4f30-bb99-2f3fd95f7a80" x="0" y="0" width="556" height="24" backcolor="#CCCCCC"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" x="0" y="0" width="109" height="24" backcolor="#CCCCCC"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" x="109" y="0" width="151" height="24" backcolor="#CCCCCC"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" x="258" y="0" width="151" height="24" backcolor="#CCCCCC"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" x="409" y="0" width="147" height="24" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="6" y="2" width="98" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[FECHA DESPACHO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="120" y="2" width="138" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[# DESPACHO (GREEN CARD)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="270" y="2" width="136" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[# ORDEN DE PEDIDO (SIESA)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="415" y="2" width="136" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[# REMISIÓN]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21">
+			<rectangle>
+				<reportElement uuid="1613f523-8692-46c7-ba36-735a95a00dfe" positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="109" height="21" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="1613f523-8692-46c7-ba36-735a95a00dfe" positionType="Float" stretchType="RelativeToBandHeight" x="109" y="0" width="149" height="21" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="1613f523-8692-46c7-ba36-735a95a00dfe" positionType="Float" stretchType="RelativeToBandHeight" x="258" y="0" width="151" height="21" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="1613f523-8692-46c7-ba36-735a95a00dfe" positionType="Float" stretchType="RelativeToBandHeight" x="409" y="0" width="147" height="21" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6e5565af-37a9-44ec-8175-6d330d7d558f" x="415" y="3" width="136" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeroRemision}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="9676af21-d183-491f-bc2d-9a9cf5564476" x="5" y="3" width="103" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="730624d1-ac0b-4c28-9270-bf2efd282012" x="117" y="3" width="138" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tNumeroEntregaCadena}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="acecd6dd-c53a-4623-bd14-f0b30c61eaa1" x="263" y="3" width="138" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pedido}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="19">
+			<staticText>
+				<reportElement uuid="da266d69-008d-40fe-bd15-c48731cd6cf6" x="0" y="0" width="556" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ESTE DOCUMENTO ES PROPIEDAD DE MANUFACTURAS Y PROCESO INDUSTRIALES LTDA, PROHÍBIDA SU REPRODUCCIÓN]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<h:form id="formPedidoSiesa">
+		<p:dialog header="Información de pedidos en siesa" closable="false"
+			width="1200" widgetVar="panelPedidoSiesa" resizable="true"
+			height="500" responsive="true">
+			<p:outputPanel id="outputpanelPedidoSiesa"
+				rendered="#{administrarDespacho.despacho.softwareBase=='S'}">
+
+				<p:outputLabel value="El número de pedido "
+					style="font-weight:normal; font-size:16px" />
+				<p:spacer width="5" />
+				<p:outputLabel value="#{administrarDespacho.despacho.pedido} "
+					style="font-weight:normal; font-size:16px; font-weight:bold; color:red" />
+				<p:spacer width="5" />
+				<p:outputLabel
+					value="posee varios registros, elija uno en el botón de la acción"
+					style="font-weight:normal; font-size:16px" />
+				<br />
+
+				<div align="left">
+
+
+					<p:dataTable var="loc" id="dtlPedidosSiesa"
+						value="#{administrarDespacho.pedidosBaseCrear}" reflow="true"
+						rows="10" paginator="true" paginatorPosition="bottom"
+						draggableColumns="true"
+						emptyMessage="No existen datos del pedido digitado">
+
+
+						<p:column headerText="Orden de compra" filterMatchMode="contains" width="7%"
+							sortBy="#{loc.numeroOrdenCompra}" style="font-size:14px">
+							<p:outputLabel value="#{loc.numeroOrdenCompra}"
+								style="font-weight:normal; font-size:12px" />
+						</p:column>
+
+
+						<p:column headerText="Fecha pedido" filterMatchMode="contains" width="15%"
+							sortBy="#{loc.fechaPedido}" style="font-size:14px">
+							<p:outputLabel value="#{consultarFuncionesAPI.getFechaHoraColombia(loc.fechaPedido)}"
+								style="font-weight:normal; font-size:12px" />
+						</p:column>
+
+
+						<p:column headerText="Cliente" filterMatchMode="contains" width="20%"
+							sortBy="#{loc.nitClienteFacturar}  #{loc.razonSocial}"
+							style="font-size:14px">
+							<p:outputLabel
+								value="#{loc.nitClienteFacturar} #{loc.razonSocial}"
+								style="font-weight:normal; font-size:12px" />
+						</p:column>
+
+
+						<p:column headerText="Centro operación"
+							filterMatchMode="contains" sortBy="#{loc.centroOperacion}"
+							style="font-size:14px">
+							<p:outputLabel value="#{loc.centroOperacion}"
+								style="font-weight:normal; font-size:12px" />
+						</p:column>
+
+						<p:column headerText="Sucursal" filterMatchMode="contains"
+							sortBy="#{loc.sucursal}" style="font-size:14px">
+							<p:outputLabel value="#{loc.sucursal}"
+								style="font-weight:normal; font-size:12px" />
+						</p:column>
+						<p:column headerText="Ubicación" filterMatchMode="contains"
+							sortBy="#{loc.ubicacion}" style="font-size:14px">
+							<p:outputLabel value="#{loc.ubicacion}"
+								style="font-weight:normal; font-size:12px" />
+						</p:column>
+						<p:column headerText="Código(s) artículo(s)" width="20%"
+							filterMatchMode="contains" sortBy="#{loc.codigoItem}"
+							style="font-size:14px; vertical-align:top;">
+							<p:inputTextarea value="#{loc.codigoItem}" rows="2"
+								label="#{mensaje.codigoArticulo}" readonly="true"
+								autoResize="false"
+								style="font-size:14px; width:100%; background-color:#D3D3D3; min-height:50px" />
+						</p:column>
+
+						<p:column headerText="Producto(s)" filterMatchMode="contains"  width="20%"
+							sortBy="#{loc.descripcionItem}" style="font-size:14px; vertical-align:top;">
+
+
+
+							<p:inputTextarea value="#{loc.descripcionItem}" rows="2"
+								label="#{mensaje.producto}" readonly="true" autoResize="false"
+								style="font-size:14px; width:100%; background-color:#D3D3D3; min-height:50px" />
+						</p:column>
+
+
+
+
+						<p:column headerText="Acción"
+							style="font-size:14px; text-align:center;">
+
+
+
+							<p:commandButton id="btnAsignarPedido"
+								title="Seleccionar este pedido"
+								style="background-origin: content-box; background-image: url('../imagenes/asignar.png'); background-size: cover; background-repeat:no-repeat; width:16px; height:16px; vertical-align:bottom; border:0; background-color:transparent"
+								action="#{administrarDespacho.asignarPedidoDespacho(loc,'S')}"
+								value="" process=":formPedidoSiesa"
+								update=":form:messages, :form:pnlCrearCasoUso:pnlDatosGenerales, :formPedidoSiesa, :form:pnlCrearCasoUso:txtCentroOperacionS, :form:pnlCrearCasoUso:txtPedidoS, :form:pnlCrearCasoUso:txtOrdenS, :form:pnlCrearCasoUso:txtNumeroEntregaS, :form:pnlCrearCasoUso:txtNitS, :form:pnlCrearCasoUso:txtClienteS, :form:pnlCrearCasoUso:txtPedidoS, :form:pnlCrearCasoUso:txtProductoS, :form:pnlCrearCasoUso:txtCodigoS, :form:pnlCrearCasoUso:txtUbicacionS" />
+
+
+
+
+
+
+
+						</p:column>
+
+
+					</p:dataTable>
+
+
+
+
+
+
+
+
+				</div>
+				<br />
+				<br />
+				<div align="center">
+					<p:commandButton id="btnCancelarPedidoSiesa"
+						style="font-size:14px; font-weight: normal !important;"
+						action="#{administrarDespacho.cancelarSeleccionPedido('S')}"
+						process="@this" value="#{mensaje.cancelar}"
+						update=":form:messages, :form:pnlCrearCasoUso:pnlDatosGenerales, :formPedidoSiesa, :form:pnlCrearCasoUso:txtCentroOperacionS, :form:pnlCrearCasoUso:txtPedidoS, :form:pnlCrearCasoUso:txtPedidoS, :form:pnlCrearCasoUso:txtOrdenS, :form:pnlCrearCasoUso:txtNumeroEntregaS, :form:pnlCrearCasoUso:txtNitS, :form:pnlCrearCasoUso:txtClienteS, :form:pnlCrearCasoUso:txtPedidoS, :form:pnlCrearCasoUso:txtProductoS, :form:pnlCrearCasoUso:txtCodigoS, :form:pnlCrearCasoUso:txtUbicacionS">
+
+					</p:commandButton>
+
+				</div>
+			</p:outputPanel>
+		</p:dialog>
+
+
+	</h:form>
+</ui:composition>

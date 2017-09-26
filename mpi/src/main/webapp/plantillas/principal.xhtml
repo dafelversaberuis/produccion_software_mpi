@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<link rel="shortcut icon" href="/mpi/plantillas/images/favicon.png" />
+
+	<meta name="author" content="Quimerapps" />
+	<title>MPI - SPI</title>
+	<meta name="description" content="MPI- SPI" />
+	<meta name="keywords" content="MPI-SPI" />
+	<link
+		href='http://fonts.googleapis.com/css?family=Roboto:100,300,300italic,400,700|Julius+Sans+One|Roboto+Condensed:300,400'
+		rel='stylesheet' type='text/css' />
+	<link rel="stylesheet" href="/mpi/plantillas/css/style.css" />
+	<link rel="stylesheet" href="/mpi/plantillas/css/grid.css" />
+	<link rel="stylesheet" href="/mpi/plantillas/css/layout.css" />
+	<link rel="stylesheet" href="/mpi/plantillas/css/fontello.css" />
+	<link rel="stylesheet" href="/mpi/plantillas/css/animation.css" />
+	<link rel="stylesheet"
+		href="/mpi/plantillas/js/fancybox/jquery.fancybox.css" />
+	<script src="/mpi/plantillas/js/jquery.modernizr.js"></script>
+	<style type="text/css">
+.ui-growl-title {
+	font: 14px "Lucida Console", Monaco, monospace;
+}
+
+.ui-growl-message p {
+	font: 16px "Lucida Console", Monaco, monospace;
+}
+</style>
+</h:head>
+
+<body data-spy="scroll" data-target="#navigation" class="page-template">
+	<div class="loader"></div>
+	<header id="header"> <h:form id="formCliente">
+		<p:remoteCommand name="onload"
+			action="#{administrarSesionCliente.getNologueoAdministrador()}"
+			autoRun="true" />
+		<div class="header-in">
+
+			<h1 id="logo" style="font-size: 0 !important;">
+				<a href="/mpi/home.jsf"><img src="/mpi/imagenes/mpi_tr.png"
+					alt="MPI Software" style="height: 80px; width: auto" /> </a>
+			</h1>
+
+			<a id="responsive-nav-button" class="responsive-nav-button" href="#"></a>
+
+			<nav id="navigation" class="navigation">
+
+			<ul>
+
+
+				<li class=""><a href="#" class="">#{mensaje.moduloDespachos}</a>
+					<ul class="">
+
+						<li><p:commandLink value="#{mensaje.ventas}"
+								disabled="#{!(administrarSesionCliente.administradorSesion!=null and administrarSesionCliente.administradorSesion.id!=null and (administrarSesionCliente.administradorSesion.tipoAdministracion=='T' or administrarSesionCliente.administradorSesion.tVenta))}"
+								title="#{mensaje.ventas}"
+								action="/despachos/crearVenta.xhtml?faces-redirect=true"
+								ajax="false" /></li>
+
+
+						<li><a href="#" class="">#{mensaje.basculas}</a>
+							<ul class="">
+								<li><p:commandLink value="#{mensaje.basculaInicial}"
+										title="#{mensaje.basculas}"
+										disabled="#{!(administrarSesionCliente.administradorSesion!=null and administrarSesionCliente.administradorSesion.id!=null and (administrarSesionCliente.administradorSesion.tipoAdministracion=='T' or administrarSesionCliente.administradorSesion.tBascula))}"
+										action="/despachos/actualizarBasculaInicial.xhtml?faces-redirect=true"
+										ajax="false" /></li>
+
+
+								<li><p:commandLink value="#{mensaje.basculaFinal}"
+										disabled="#{!(administrarSesionCliente.administradorSesion!=null and administrarSesionCliente.administradorSesion.id!=null and (administrarSesionCliente.administradorSesion.tipoAdministracion=='T' or administrarSesionCliente.administradorSesion.tBascula2))}"
+										title="#{mensaje.basculas}"
+										action="/despachos/actualizarBasculaFinal.xhtml?faces-redirect=true"
+										ajax="false" /></li>
+
+
+							</ul></li>
+
+						<li><p:commandLink value="#{mensaje.bahias}"
+								disabled="#{!(administrarSesionCliente.administradorSesion!=null and administrarSesionCliente.administradorSesion.id!=null and (administrarSesionCliente.administradorSesion.tipoAdministracion=='T' or administrarSesionCliente.administradorSesion.tBahia))}"
+								title="#{mensaje.bahias}"
+								action="/despachos/actualizarBahia.xhtml?faces-redirect=true"
+								ajax="false" /></li>
+
+
+						<li><a href="#" class="">Informes</a>
+							<ul class="">
+								<li><p:commandLink
+										disabled="#{!(administrarSesionCliente.administradorSesion!=null and administrarSesionCliente.administradorSesion.id!=null and (administrarSesionCliente.administradorSesion.tipoAdministracion=='T' or administrarSesionCliente.administradorSesion.tInformeTrazabilidad))}"
+										value="Informe de trazabilidad de ventas"
+										title="Informe de trazabilidad de ventas"
+										action="/despachos/consultarInformeTrazabilidad.xhtml?faces-redirect=true"
+										ajax="false" /></li>
+
+								<li><p:commandLink value="Causas de retraso (Informe 1)"
+										disabled="#{!(administrarSesionCliente.administradorSesion!=null and administrarSesionCliente.administradorSesion.id!=null and (administrarSesionCliente.administradorSesion.tipoAdministracion=='T' or administrarSesionCliente.administradorSesion.tInformeCausasRetraso))}"
+										title="Causas de retraso (Informe 1)"
+										action="/despachos/consultarInformeCausasRetraso.xhtml?faces-redirect=true"
+										ajax="false" /></li>
+
+								<li><p:commandLink
+										disabled="#{!(administrarSesionCliente.administradorSesion!=null and administrarSesionCliente.administradorSesion.id!=null and (administrarSesionCliente.administradorSesion.tipoAdministracion=='T' or administrarSesionCliente.administradorSesion.tInformeTiempos))}"
+										value="Tiempos operacionales de cargue en planta (Informe 2)"
+										title="Tiempos operacionales de cargue en planta (Informe 2)"
+										action="/despachos/consultarTiemposOperacionales.xhtml?faces-redirect=true"
+										ajax="false" /></li>
+
+								<li><p:commandLink
+										disabled="#{!(administrarSesionCliente.administradorSesion!=null and administrarSesionCliente.administradorSesion.id!=null and (administrarSesionCliente.administradorSesion.tipoAdministracion=='T' or administrarSesionCliente.administradorSesion.tInformeMonitoreo))}"
+										value="Monitoreo de despachos (Informe 3)"
+										title="Monitoreo de despachos (Informe 3)"
+										action="/despachos/consultarMonitoreoDespachos.xhtml?faces-redirect=true"
+										ajax="false" /></li>
+
+
+
+							</ul></li>
+
+
+					</ul></li>
+
+
+
+				<li class=""><a href="#" class="">#{mensaje.parametrosGenerales}</a>
+					<ul class="">
+
+
+						<li><p:commandLink value="#{mensaje.basculas}"
+								disabled="#{!(administrarSesionCliente.administradorSesion!=null and administrarSesionCliente.administradorSesion.id!=null and (administrarSesionCliente.administradorSesion.tipoAdministracion=='T' or administrarSesionCliente.administradorSesion.tParametrosBasculas))}"
+								title="#{mensaje.bahias}"
+								action="/tablasSoporte/crearBascula.xhtml?faces-redirect=true"
+								ajax="false" /></li>
+
+						<li><p:commandLink value="#{mensaje.bahias}"
+								disabled="#{!(administrarSesionCliente.administradorSesion!=null and administrarSesionCliente.administradorSesion.id!=null and (administrarSesionCliente.administradorSesion.tipoAdministracion=='T' or administrarSesionCliente.administradorSesion.tParametrosBahias))}"
+								title="#{mensaje.bahias}"
+								action="/tablasSoporte/crearBahia.xhtml?faces-redirect=true"
+								ajax="false" /></li>
+
+						<li><p:commandLink value="Tiempos estándar bahías"
+								disabled="#{!(administrarSesionCliente.administradorSesion!=null and administrarSesionCliente.administradorSesion.id!=null and (administrarSesionCliente.administradorSesion.tipoAdministracion=='T' or administrarSesionCliente.administradorSesion.tParametrosTiempos))}"
+								title="Tiempos estandar bahías"
+								action="/tablasSoporte/crearTiempo.xhtml?faces-redirect=true"
+								ajax="false" /></li>
+
+
+
+
+					</ul></li>
+
+				<li class=""><a href="#" class="">#{mensaje.personal}</a>
+					<ul class="">
+
+						<li><p:commandLink value="#{mensaje.administradoresSoftware}"
+								disabled="#{!(administrarSesionCliente.administradorSesion!=null and administrarSesionCliente.administradorSesion.id!=null and administrarSesionCliente.administradorSesion.tipoAdministracion=='T' )}"
+								title="#{mensaje.administradoresSoftware}"
+								action="/personal/crearAdministrador.xhtml?faces-redirect=true"
+								ajax="false" /></li>
+
+						<li><p:commandLink value="#{mensaje.clientes}"
+								disabled="#{!(administrarSesionCliente.administradorSesion!=null and administrarSesionCliente.administradorSesion.id!=null and (administrarSesionCliente.administradorSesion.tipoAdministracion=='T' or administrarSesionCliente.administradorSesion.tClientes))}"
+								title="#{mensaje.clientes}"
+								action="/personal/crearCliente.xhtml?faces-redirect=true"
+								ajax="false" /></li>
+
+						<li><p:commandLink value="#{mensaje.conductores}"
+								disabled="#{!(administrarSesionCliente.administradorSesion!=null and administrarSesionCliente.administradorSesion.id!=null and (administrarSesionCliente.administradorSesion.tipoAdministracion=='T' or administrarSesionCliente.administradorSesion.tConductores))}"
+								title="#{mensaje.conductores}"
+								action="/personal/crearConductor.xhtml?faces-redirect=true"
+								ajax="false" /></li>
+
+
+
+
+
+					</ul></li>
+
+
+
+
+
+
+				<li class="current-menu-item"><p:commandLink
+						value="#{administrarSesionCliente.administradorSesion.nombres} #{mensaje.cerrarSesion}"
+						ajax="false" title="#{mensaje.cerrarSesion}"
+						action="#{administrarSesionCliente.getCerrarSesion()}" /></li>
+
+
+			</ul>
+
+			</nav>
+		</div>
+	</h:form> </header>
+	<div id="wrapper" align="center">
+
+		<div style="width: 90%;" align="left">
+			<br /> <br /> <br /> <br />
+			<ui:insert name="body" />
+			<br /> <br /> <br />
+
+		</div>
+		<footer id="footer"> <section class="section parallax ">
+
+		#{mensaje.mpiSoftware} - #{mensaje.disenadoPor}
+		<div class="container">
+			<div class="row"></div>
+
+		</div>
+
+		</section> </footer>
+	</div>
+
+
+
+	<script src="/mpi/plantillas/js/jquery.queryloader2.js"></script>
+	<script src="/mpi/plantillas/js/jquery.easing.1.3.min.js"></script>
+	<script src="/mpi/plantillas/js/jquery.cycle.all.min.js"></script>
+	<script src="/mpi/plantillas/js/jquery.smoothscroll.js"></script>
+	<script src="/mpi/plantillas/js/waypoints.min.js"></script>
+
+
+	<script src="/mpi/plantillas/js/fancybox/jquery.fancybox.pack.js"></script>
+	<script src="/mpi/plantillas/js/config.js"></script>
+	<script src="/mpi/plantillas/js/custom.js"></script>
+
+
+</body>
+</html>

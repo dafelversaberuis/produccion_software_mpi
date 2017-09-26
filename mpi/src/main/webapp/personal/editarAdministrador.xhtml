@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="formEditar">
+
+		<p:dialog header="#{mensaje.editarAdministrador}"
+			widgetVar="panelEdicionAdministrador" resizable="true"
+			closable="false" responsive="true">
+			<p:panel id="pnlEditarAdministrador">
+				<div align="center">
+
+
+					<p:panelGrid columns="5" cellpadding="0" cellspacing="0"
+						styleClass="ui-panelgrid-blank">
+
+						<p:outputLabel for="txtNombres" value="#{mensaje.nombres}"
+							style="font-weight:bold; font-size:14px" />
+						<p:inputText id="txtNombres"
+							value="#{administrarPersonal.personalTransaccion.nombres}"
+							required="true" label="#{mensaje.nombres}"
+							style="width:100%; font-size:14px" />
+
+						<p:spacer width="1" />
+						<p:spacer width="1" />
+						<p:message for="txtNombres" />
+
+
+						<p:outputLabel for="txtApellidos" value="#{mensaje.apellidos}"
+							style="font-weight:bold; font-size:14px" />
+						<p:inputText id="txtApellidos"
+							value="#{administrarPersonal.personalTransaccion.apellidos}"
+							required="true" label="#{mensaje.apellidos}"
+							style="width:100%; font-size:14px" />
+
+						<p:spacer width="1" />
+						<p:spacer width="1" />
+						<p:message for="txtApellidos" />
+
+
+
+
+						<p:outputLabel for="txtCorreo" value="#{mensaje.correo}"
+							style="font-weight:bold; font-size:14px" />
+						<p:inputText id="txtCorreo"
+							value="#{administrarPersonal.personalTransaccion.correoElectronico}"
+							required="true" label="#{mensaje.correo}"
+							style="width:100%; font-size:14px" />
+
+						<p:graphicImage value="../imagenes/ayuda.png"
+							id="ayudaCorreoAdministrador" />
+						<p:tooltip value="#{mensaje.ayudaCorreoAdministrador}"
+							trackMouse="true" for="ayudaCorreoAdministrador" />
+						<p:message for="txtCorreo" />
+
+						<p:outputLabel for="lstIndicativo" value="#{mensaje.indicativo}"
+							style="font-weight:bold; font-size:14px;" />
+						<p:selectOneMenu id="lstIndicativo" required="true"
+							style="font-size:14px;"
+							value="#{administrarPersonal.personalTransaccion.estadoVigencia}"
+							label="#{mensaje.indicativo}">
+							<f:selectItems value="#{consultarFuncionesAPI.itemsEstados}" />
+						</p:selectOneMenu>
+						<p:graphicImage value="../imagenes/ayuda.png"
+							id="ayudaIndicativoEstado" />
+						<p:tooltip value="#{mensaje.ayudaIndicativoEstado}"
+							trackMouse="true" for="ayudaIndicativoEstado" />
+						<p:message for="lstIndicativo" />
+
+
+						<p:outputLabel for="lstTipoAdmon" value="#{mensaje.tipoAdmon}"
+							style="font-weight:bold; font-size:14px;" />
+						<p:selectOneMenu id="lstTipoAdmon" required="true"
+							style="font-size:14px; width:100%"
+							value="#{administrarPersonal.personalTransaccion.tipoAdministracion}"
+							label="#{mensaje.tipoAdmon}">
+							<f:selectItem itemValue="" itemLabel="#{mensaje.comboVacio}" />
+							<f:selectItem itemValue="T" itemLabel="#{mensaje.total}" />
+							<f:selectItem itemValue="P" itemLabel="#{mensaje.parcial}" />
+
+							<p:ajax
+								update="pnlTipoPermiso, pnlTipoPermiso2, pnlTipoPermiso3, pnlTipoPermiso4, pnlTipoPermiso2a, pnlTipoPermiso2b, pnlTipoPermiso2c"
+								process="@this" />
+
+						</p:selectOneMenu>
+						<p:spacer width="1" />
+						<p:spacer width="1" />
+						<p:message for="lstTipoAdmon" />
+
+						<p:outputPanel id="pnlTipoPermiso">
+								<p:outputLabel value="#{mensaje.tipoPermiso} *"
+									rendered="#{administrarPersonal.personalTransaccion.tipoAdministracion!=null and administrarPersonal.personalTransaccion.tipoAdministracion=='P'}"
+									style="font-weight:bold; font-size:14px;" />
+							</p:outputPanel>
+							<p:outputPanel id="pnlTipoPermiso2">
+								<p:selectBooleanButton id="booleanBtn"
+									rendered="#{administrarPersonal.personalTransaccion.tipoAdministracion!=null and administrarPersonal.personalTransaccion.tipoAdministracion=='P'}"
+									onLabel="Despacho ventas" style="font-size:10px"
+									offLabel="Despacho ventas" onIcon="ui-icon-check"
+									offIcon="ui-icon-close"
+									value="#{administrarPersonal.personalTransaccion.tVenta}" />
+								<p:selectBooleanButton id="booleanBtn2"
+									rendered="#{administrarPersonal.personalTransaccion.tipoAdministracion!=null and administrarPersonal.personalTransaccion.tipoAdministracion=='P'}"
+									onLabel="#{mensaje.interfazBascula1}" style="font-size:10px"
+									offLabel="#{mensaje.interfazBascula1}" onIcon="ui-icon-check"
+									offIcon="ui-icon-close"
+									value="#{administrarPersonal.personalTransaccion.tBascula}" />
+
+								<p:selectBooleanButton id="booleanBtn3"
+									rendered="#{administrarPersonal.personalTransaccion.tipoAdministracion!=null and administrarPersonal.personalTransaccion.tipoAdministracion=='P'}"
+									onLabel="#{mensaje.interfazBascula2}" style="font-size:10px"
+									offLabel="#{mensaje.interfazBascula2}" onIcon="ui-icon-check"
+									offIcon="ui-icon-close"
+									value="#{administrarPersonal.personalTransaccion.tBascula2}" />
+								<p:selectBooleanButton id="booleanBtn4"
+									rendered="#{administrarPersonal.personalTransaccion.tipoAdministracion!=null and administrarPersonal.personalTransaccion.tipoAdministracion=='P'}"
+									onLabel="#{mensaje.interfazBahias}" style="font-size:10px"
+									offLabel="#{mensaje.interfazBahias}" onIcon="ui-icon-check"
+									offIcon="ui-icon-close"
+									value="#{administrarPersonal.personalTransaccion.tBahia}" />
+
+							</p:outputPanel>
+							<p:outputPanel id="pnlTipoPermiso2a">
+								<p:spacer width="1" />
+							</p:outputPanel>
+							<p:outputPanel id="pnlTipoPermiso2b">
+								<p:spacer width="1" />
+							</p:outputPanel>
+							<p:outputPanel id="pnlTipoPermiso2c">
+								<p:spacer width="1" />
+							</p:outputPanel>
+							<p:outputPanel id="pnlTipoPermiso3">
+								<p:spacer width="1" />
+
+							</p:outputPanel>
+
+							<p:outputPanel id="pnlTipoPermiso4">
+
+								<p:selectBooleanButton id="booleanBtn5"
+									rendered="#{administrarPersonal.personalTransaccion.tipoAdministracion!=null and administrarPersonal.personalTransaccion.tipoAdministracion=='P'}"
+									onLabel="#{mensaje.paramBasculas}" style="font-size:10px"
+									offLabel="#{mensaje.paramBasculas}" onIcon="ui-icon-check"
+									offIcon="ui-icon-close"
+									value="#{administrarPersonal.personalTransaccion.tParametrosBasculas}" />
+								<p:selectBooleanButton id="booleanBtn6"
+									rendered="#{administrarPersonal.personalTransaccion.tipoAdministracion!=null and administrarPersonal.personalTransaccion.tipoAdministracion=='P'}"
+									onLabel="#{mensaje.paramBahias}" style="font-size:10px"
+									offLabel="#{mensaje.paramBahias}" onIcon="ui-icon-check"
+									offIcon="ui-icon-close"
+									value="#{administrarPersonal.personalTransaccion.tParametrosBahias}" />
+
+
+								<p:selectBooleanButton
+									rendered="#{administrarPersonal.personalTransaccion.tipoAdministracion!=null and administrarPersonal.personalTransaccion.tipoAdministracion=='P'}"
+									onLabel="Parámetros tiempos estándar"
+									offLabel="Parámetros tiempos estándar" style="font-size:10px"
+									onIcon="ui-icon-check" offIcon="ui-icon-close"
+									value="#{administrarPersonal.personalTransaccion.tParametrosTiempos}" />
+
+
+
+
+
+
+							</p:outputPanel>
+							<p:outputPanel id="pnlTipoPermiso9">
+								<p:spacer width="1" />
+							</p:outputPanel>
+							<p:outputPanel id="pnlTipoPermiso5">
+								<p:spacer width="1" />
+							</p:outputPanel>
+							<p:outputPanel id="pnlTipoPermiso6">
+								<p:spacer width="1" />
+							</p:outputPanel>
+							<p:outputPanel id="pnlTipoPermiso7">
+								<p:spacer width="1" />
+							</p:outputPanel>
+
+
+							<p:outputPanel id="pnlTipoPermiso8">
+
+								<p:selectBooleanButton
+									rendered="#{administrarPersonal.personalTransaccion.tipoAdministracion!=null and administrarPersonal.personalTransaccion.tipoAdministracion=='P'}"
+									onLabel="Informe trazabilidad" offLabel="Informe trazabilidad"
+									onIcon="ui-icon-check" offIcon="ui-icon-close"
+									style="font-size:10px"
+									value="#{administrarPersonal.personalTransaccion.tInformeTrazabilidad}" />
+
+								<p:selectBooleanButton
+									rendered="#{administrarPersonal.personalTransaccion.tipoAdministracion!=null and administrarPersonal.personalTransaccion.tipoAdministracion=='P'}"
+									onLabel="Informe causas retraso"
+									offLabel="Informe causas retraso" onIcon="ui-icon-check"
+									offIcon="ui-icon-close" style="font-size:10px"
+									value="#{administrarPersonal.personalTransaccion.tInformeCausasRetraso}" />
+
+								<p:selectBooleanButton
+									rendered="#{administrarPersonal.personalTransaccion.tipoAdministracion!=null and administrarPersonal.personalTransaccion.tipoAdministracion=='P'}"
+									onLabel="Informe tiempos operacionales"
+									offLabel="Informe tiempos operacionales" onIcon="ui-icon-check"
+									offIcon="ui-icon-close" style="font-size:10px"
+									value="#{administrarPersonal.personalTransaccion.tInformeTiempos}" />
+
+								<p:selectBooleanButton
+									rendered="#{administrarPersonal.personalTransaccion.tipoAdministracion!=null and administrarPersonal.personalTransaccion.tipoAdministracion=='P'}"
+									onLabel="Informe monitoreo despachos"
+									offLabel="Informe monitoreo despachos" onIcon="ui-icon-check"
+									offIcon="ui-icon-close" style="font-size:10px"
+									value="#{administrarPersonal.personalTransaccion.tInformeMonitoreo}" />
+
+
+
+							</p:outputPanel>
+
+							<p:outputPanel id="pnlTipoPermiso10">
+								<p:spacer width="1" />
+							</p:outputPanel>
+							<p:outputPanel id="pnlTipoPermiso12">
+								<p:spacer width="1" />
+							</p:outputPanel>
+							<p:outputPanel id="pnlTipoPermiso13">
+								<p:spacer width="1" />
+							</p:outputPanel>
+							<p:outputPanel id="pnlTipoPermiso14">
+								<p:spacer width="1" />
+							</p:outputPanel>
+
+
+							<p:outputPanel id="pnlTipoPermiso11">
+
+								<p:selectBooleanButton id="booleanBtn7"
+									rendered="#{administrarPersonal.personalTransaccion.tipoAdministracion!=null and administrarPersonal.personalTransaccion.tipoAdministracion=='P'}"
+									onLabel="Personal clientes frecuentes"
+									offLabel="Personal clientes frecuentes" style="font-size:10px"
+									onIcon="ui-icon-check" offIcon="ui-icon-close"
+									value="#{administrarPersonal.personalTransaccion.tClientes}" />
+
+
+
+
+
+								<p:selectBooleanButton id="booleanBtn8"
+									rendered="#{administrarPersonal.personalTransaccion.tipoAdministracion!=null and administrarPersonal.personalTransaccion.tipoAdministracion=='P'}"
+									onLabel="Personal conductores frecuentes"
+									style="font-size:10px"
+									offLabel="Personal conductores frecuentes"
+									onIcon="ui-icon-check" offIcon="ui-icon-close"
+									value="#{administrarPersonal.personalTransaccion.tConductores}" />
+							</p:outputPanel>
+
+
+
+
+
+
+
+					</p:panelGrid>
+
+
+
+				</div>
+				<br />
+				<br />
+				<div align="center">
+					<p:commandButton id="btnEditarAdministrador" style="font-size:14px"
+						action="#{administrarPersonal.editarAdministrador()}"
+						value="#{mensaje.editar}"
+						process=":formEditar:pnlEditarAdministrador"
+						update=":formEditar:pnlEditarAdministrador, :form" />
+					<p:spacer width="10" />
+					<p:commandButton id="btnCancelarEdicionAdministrador"
+						style="font-size:14px; font-weight: normal !important;"
+						action="#{administrarPersonal.cancelarAdministradorTransaccion('MODAL_EDITAR_ADMINISTRADOR')}"
+						process="@this" value="#{mensaje.cancelar}" update=":form">
+						<p:resetInput target=":formEditar, :form" />
+					</p:commandButton>
+
+				</div>
+
+				<p:outputLabel value="#{mensaje.informacionRequerida}"
+					style="font-size:10px" />
+				<p:blockUI block=":formEditar:pnlEditarAdministrador"
+					trigger="btnEditarAdministrador, btnCancelarEdicionAdministrador">
+					<p:graphicImage value="../imagenes/cargando.gif" />
+				</p:blockUI>
+
+			</p:panel>
+		</p:dialog>
+		<p:blockUI block="pnlEditarAdministrador"
+			trigger="btnEditarAdministrador" />
+
+	</h:form>
+</ui:composition>

@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal.xhtml">
+
+	<ui:define name="body">
+		<style type="text/css">
+.ui-autocomp .ui-inputfield {
+	clear: left;
+	cursor: text;
+	list-style-type: none;
+	margin: 0;
+	min-height: 1px;
+	overflow: hidden;
+	width: 250px;
+}
+</style>
+
+
+
+		<h:form id="form">
+			<p:growl id="messages" showDetail="true" globalOnly="true" />
+
+			<p:remoteCommand name="onload" process="@this"
+				action="#{administrarSesionCliente.getNoRolAdmitido('IM')}"
+				autoRun="true" />
+
+
+			<div class="row x_title">
+				<div class="col-md-6">
+
+					<h2 class="project-title">#{mensaje.moduloDespachos}: Informe
+						3- Monitoreo de despachos</h2>
+
+				</div>
+			</div>
+
+			<div align="center" class="titulo"></div>
+			<p:outputPanel id="pnlCasoUso">
+
+
+				<p:outputPanel id="pnlConsultar">
+					<p:accordionPanel>
+						<p:tab title="Criterios de consulta" titleStyle="font-size:16px"
+							closable="true">
+
+							<p:panelGrid columns="8" cellpadding="0" cellspacing="0"
+								styleClass="ui-panelgrid-blank" style="width:100%">
+
+
+
+
+
+								<p:outputLabel for="calFechaDesde" value="Fecha inicial"
+									style="font-weight:bold; font-size:14px" />
+
+								<p:calendar id="calFechaDesde"
+									value="#{administrarDespacho.despachoConsulta.tFechaDesde}"
+									pattern="dd/MM/yyyy" mask="true" style="font-size:14px" />
+
+
+
+
+
+
+								<p:outputLabel for="calFechaHasta" value="Fecha final"
+									style="font-weight:bold; font-size:14px" />
+
+								<p:calendar id="calFechaHasta"
+									value="#{administrarDespacho.despachoConsulta.tFechaHasta}"
+									pattern="dd/MM/yyyy" mask="true" style="font-size:14px" />
+
+
+								<p:outputLabel for="lstInformacionBaseC" value="Base del pedido"
+									style="font-weight:bold; font-size:14px; " />
+
+
+								<p:selectOneMenu label="Base del pedido"
+									style="width:100%; font-size:14px; " id="lstInformacionBaseC"
+									value="#{administrarDespacho.despachoConsulta.softwareBase}">
+
+									<f:selectItem itemValue="" itemLabel="#{mensaje.comboVacio}" />
+									<f:selectItem itemValue="G" itemLabel="#{mensaje.greenCard}" />
+									<f:selectItem itemValue="S" itemLabel="#{mensaje.siesa}" />
+
+
+
+
+
+								</p:selectOneMenu>
+
+
+								<p:spacer width="1" />
+								<p:message for="calFechaDesde" />
+								<p:spacer width="1" />
+								<p:message for="calFechaHasta" />
+
+								<p:spacer width="1" />
+								<p:message for="lstInformacionBaseC" />
+
+
+
+
+
+
+
+
+							</p:panelGrid>
+
+							<p:spacer height="10" />
+							<div align="center">
+								<p:commandButton id="btnConsultar" style="font-size:14px;"
+									process=":form:pnlConsultar"
+									action="#{administrarDespacho.consultarDespachos()}"
+									update=":form:pnlConsultar, :form:pnlDltRegistros"
+									value="#{mensaje.consultar}" />
+
+								<p:spacer width="10" />
+								<p:commandButton id="btnBorrar"
+									style="font-size:14px; font-weight: normal; text-decoration: none !important;"
+									update=":form:pnlConsultar, :form:pnlDltRegistros"
+									action="#{administrarDespacho.cancelarConsultaDespachos()}"
+									process="@this" value="#{mensaje.cancelar}">
+
+									<p:resetInput target=":form:pnlConsultar" />
+
+								</p:commandButton>
+
+							</div>
+
+							<p:blockUI block=":form:pnlConsultar"
+								trigger="btnConsultar, btnBorrar">
+
+								<p:graphicImage value="../imagenes/cargando.gif" />
+
+
+							</p:blockUI>
+
+							<br />
+							<p:outputLabel
+								value="**Los resultados involucran todos los despachos, antigüos y nuevos tanto base Green Card como Siesa"
+								style="font-size:10px" />
+
+						</p:tab>
+
+
+					</p:accordionPanel>
+				</p:outputPanel>
+
+				<p:spacer height="30" />
+				<p:accordionPanel id="pnlDltRegistros">
+					<p:tab title="Resultados de consulta" titleStyle="font-size:16px"
+						closable="true">
+
+
+						<p:dataTable var="loc" id="dtlRegistros" widgetVar="dtlRegistros"
+							value="#{administrarDespacho.despachos}" reflow="true" rows="10"
+							paginator="true" paginatorPosition="bottom"
+							draggableColumns="true"
+							emptyMessage="#{mensaje.noExistenciaRegistrosConsulta}">
+
+							<f:facet name="header">
+
+
+								<p:outputPanel style="text-align:right">
+
+									<p:inputText id="globalFilter" immediate="true"
+										onkeyup="PF('dtlRegistros').filter()" style="width:300px; "
+										placeholder="#{mensaje.palabrasClave}" />
+
+
+								</p:outputPanel>
+							</f:facet>
+
+
+
+							<p:column headerText="Fecha de despacho" sortBy="#{loc.fecha}"
+								filterStyle="display:none" filterMatchMode="contains"
+								filterBy="#{loc.fecha}" style="font-size:12px">
+								<p:outputLabel value="#{loc.fecha}" style="font-weight:normal">
+
+									<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+								</p:outputLabel>
+
+
+
+							</p:column>
+
+
+							<p:column headerText="# Despacho"
+								sortBy="#{loc.tNumeroEntregaCadena}" filterMatchMode="contains"
+								filterBy="#{loc.tNumeroEntregaCadena}"
+								filterStyle="display:none" style="font-size:12px; ">
+
+
+								<p:outputLabel value="#{loc.numeroEntrega}"
+									rendered="#{loc.tNumeroEntregaCadena==null}"
+									style="font-weight:normal" />
+
+								<p:outputLabel value="#{loc.tNumeroEntregaCadena}"
+									rendered="#{loc.tNumeroEntregaCadena!=null}"
+									style="font-weight:normal" />
+							</p:column>
+
+							<p:column headerText="# Orden de Pedido" width="100"
+								sortBy="#{loc.pedido}" filterMatchMode="contains"
+								filterStyle="display:none" filterBy="#{loc.pedido}"
+								style="font-size:12px">
+								<p:outputLabel value="#{loc.pedido}" style="font-weight:normal" />
+							</p:column>
+
+
+
+							<p:column headerText="Cliente" filterStyle="display:none"
+								sortBy="#{loc.cliente.nombre}" filterMatchMode="contains"
+								filterBy="#{loc.cliente.nit} #{loc.cliente.nombre}"
+								style="font-size:12px">
+								<p:outputLabel value="#{loc.cliente.nit}, #{loc.cliente.nombre}"
+									style="font-weight:normal" />
+							</p:column>
+
+
+
+
+
+
+							<p:column headerText="Producto" sortBy="#{loc.producto}"
+								filterStyle="display:none" filterMatchMode="contains"
+								filterBy="#{loc.producto}" style="font-size:12px">
+								<p:outputLabel value="#{loc.producto}"
+									style="font-weight:normal" />
+
+
+
+							</p:column>
+
+
+							<p:column headerText="Obra" sortBy="#{loc.obra}"
+								filterStyle="display:none" filterMatchMode="contains"
+								filterBy="#{loc.obra}" style="font-size:12px">
+								<p:outputLabel value="#{loc.obra}" style="font-weight:normal" />
+
+
+
+							</p:column>
+
+
+							<p:column headerText="Cantidad despachada(Kg)"
+								sortBy="#{loc.cantidadDespachada}" filterStyle="display:none"
+								filterMatchMode="contains" filterBy="#{loc.cantidadDespachada}"
+								style="font-size:12px; text-align:right">
+								<p:outputLabel value="#{loc.diferenciaPeso}"
+									rendered="#{loc.tipoDespacho=='B'}" style="font-weight:normal" />
+
+								<p:outputLabel value="#{loc.medidor}"
+									rendered="#{loc.tipoDespacho=='M'}" style="font-weight:normal" />
+
+
+
+							</p:column>
+
+							<p:column headerText="Ubicación" sortBy="#{loc.ubicacion}"
+								filterStyle="display:none" filterMatchMode="contains"
+								filterBy="#{loc.ubicacion}" style="font-size:12px">
+								<p:outputLabel value="#{loc.ubicacion}"
+									style="font-weight:normal" />
+
+
+
+							</p:column>
+							<p:column headerText="Presentación" sortBy="#{loc.presentacion}"
+								filterStyle="display:none" filterMatchMode="contains"
+								filterBy="#{loc.presentacion}" style="font-size:12px">
+								<p:outputLabel value="#{loc.presentacion}"
+									style="font-weight:normal" />
+
+
+
+							</p:column>
+
+							<p:column headerText="Observaciones"
+								sortBy="#{loc.observaciones}" filterStyle="display:none"
+								filterMatchMode="contains" filterBy="#{loc.produccion}"
+								style="font-size:12px">
+
+								<p:outputLabel value="#{loc.observaciones}"
+									style="font-weight:normal" />
+							</p:column>
+
+
+
+
+						</p:dataTable>
+
+						<br />
+						<div align="center">
+							<p:commandButton id="btnImprimir" style="font-size:14px; "
+								rendered="#{administrarDespacho.despachos!=null and administrarDespacho.despachos.size()>0}"
+								action="#{administrarDespacho.imprimirInformeMonitoreo()}"
+								immediate="true" ajax="false" value="IMPRIMIR INFORME EN PDF" />
+
+
+
+
+						</div>
+
+
+					</p:tab>
+				</p:accordionPanel>
+			</p:outputPanel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

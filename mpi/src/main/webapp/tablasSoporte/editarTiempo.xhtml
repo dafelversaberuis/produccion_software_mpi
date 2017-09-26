@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="formEditar">
+
+		<p:dialog header="#{mensaje.editarBahia}" widgetVar="panelEdicion"
+			resizable="true" closable="false" responsive="true">
+			<p:panel id="pnlEditar">
+				<div align="center">
+
+
+					<p:panelGrid columns="2" cellpadding="0" cellspacing="0" style="width:100%"   
+						styleClass="ui-panelgrid-blank">
+
+
+						<p:outputLabel for="lstPrimeraBahia" value="Primera bahía"
+							style="font-weight:bold; font-size:14px; " />
+
+
+
+
+						<p:selectOneMenu label="Primera bahía" disabled="true"
+							style="width:100%; font-size:14px" id="lstPrimeraBahia"
+							required="true"
+							value="#{hacerMantenimiento.tiempoTransaccion.primeraBahia.id}">
+							<f:selectItems value="#{administrarDespacho.itemsBahiasActivas}" />
+						</p:selectOneMenu>
+
+
+
+
+						<p:spacer width="1" />
+
+						<p:message for="lstPrimeraBahia" />
+
+						<p:outputLabel for="lstSegundaBahia" value="Segunda bahía"
+							style="font-weight:bold; font-size:14px; " />
+
+
+						<p:selectOneMenu label="Segunda bahía" disabled="true"
+							style="width:100%; font-size:14px" id="lstSegundaBahia"
+							value="#{hacerMantenimiento.tiempoTransaccion.segundaBahia.id}">
+							<f:selectItems value="#{administrarDespacho.itemsBahiasActivas}" />
+						</p:selectOneMenu>
+
+
+						<p:spacer width="1" />
+
+						<p:message for="lstSegundaBahia" />
+
+
+
+
+						<p:outputLabel for="txtTiempo" value="Tiempo estándar(minutos)"
+							style="font-weight:bold; font-size:14px; " />
+						<p:inputText id="txtTiempo"
+							value="#{hacerMantenimiento.tiempoTransaccion.tiempoEstandar}"
+							required="true" label="Tiempo estándar"
+							style="font-size:14px;">
+
+
+						</p:inputText>
+
+
+						<p:spacer width="1" />
+
+						<p:message for="txtTiempo" />
+
+
+
+						<p:outputLabel for="lstTipoDespacho"
+							value="#{mensaje.tipoDespacho}"
+							style="font-weight:bold; font-size:14px" />
+
+						<p:selectOneMenu label="#{mensaje.tipoDespacho}" disabled="true"
+							style="width:100%; font-size:14px; " id="lstTipoDespacho"
+							required="true"
+							value="#{hacerMantenimiento.tiempoTransaccion.tipoDespacho}">
+							<f:selectItem itemValue="" itemLabel="#{mensaje.comboVacio}" />
+							<f:selectItem itemValue="B" itemLabel="#{mensaje.porBascula}" />
+							<f:selectItem itemValue="M" itemLabel="#{mensaje.porMedidor}" />
+
+
+
+						</p:selectOneMenu>
+
+						<p:spacer width="1" />
+
+						<p:message for="lstTipoDespacho" />
+
+
+
+					</p:panelGrid>
+
+
+
+				</div>
+				<br />
+				<br />
+				<div align="center">
+					<p:commandButton id="btnEditar" style="font-size:14px"
+						action="#{hacerMantenimiento.editarTiempo()}"
+						value="#{mensaje.editar}" process=":formEditar:pnlEditar"
+						update=":formEditar:pnlEditar, :form" />
+					<p:spacer width="10" />
+					<p:commandButton id="btnCancelarEdicion"
+						style="font-size:14px; font-weight: normal !important;"
+						action="#{hacerMantenimiento.cancelarTiempoTransaccion('MODAL_EDITAR')}"
+						process="@this" value="#{mensaje.cancelar}" update=":form">
+						<p:resetInput target=":formEditar, :form:pnlCasoUso" />
+					</p:commandButton>
+
+				</div>
+
+				<p:outputLabel value="#{mensaje.informacionRequerida}"
+					style="font-size:10px" />
+				<p:blockUI block=":formEditar:pnlEditar"
+					trigger="btnEditar, btnCancelarEdicion">
+					<p:graphicImage value="../imagenes/cargando.gif" />
+				</p:blockUI>
+
+			</p:panel>
+		</p:dialog>
+
+
+	</h:form>
+</ui:composition>

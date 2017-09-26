@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<h:form id="formConductorSiesa">
+		<p:dialog header="Información de vehiculos conductores en siesa"
+			closable="false" width="1200" widgetVar="panelConductorSiesa"
+			resizable="true" height="500" responsive="true">
+			<p:outputPanel id="outputpanelConductorSiesa">
+
+				<p:outputLabel
+					value="El número de documento ingresado posee varios registros en siesa, seleccione uno en la acción del registro"
+					style="font-weight:normal; font-size:16px" />
+
+				<br />
+
+				<div align="left">
+
+
+					<p:dataTable var="loc" id="dtlConductoresSiesa"
+						value="#{administrarDespacho.conductoresSiesa}" reflow="true"
+						rows="10" paginator="true" paginatorPosition="bottom"
+						draggableColumns="true"
+						emptyMessage="No existen datos del conductor con el documento digitado">
+
+
+						<p:column headerText="Placa vehículo" filterMatchMode="contains"
+							sortBy="#{loc.placa}" style="font-size:14px">
+							<p:outputLabel value="#{loc.placa}"
+								style="font-weight:normal; font-size:12px" />
+						</p:column>
+
+
+						<p:column headerText="Código transportador"
+							filterMatchMode="contains" sortBy="#{loc.tCodigoTransportador}"
+							style="font-size:14px">
+							<p:outputLabel value="#{loc.tCodigoTransportador}"
+								style="font-weight:normal; font-size:12px" />
+						</p:column>
+						<p:column headerText="Sucursal transportador"
+							filterMatchMode="contains" sortBy="#{loc.tSucursalTransportador}"
+							style="font-size:14px">
+							<p:outputLabel value="#{loc.tSucursalTransportador}"
+								style="font-weight:normal; font-size:12px" />
+						</p:column>
+						<p:column headerText="Código conductor" filterMatchMode="contains"
+							sortBy="#{loc.documento}" style="font-size:14px">
+							<p:outputLabel value="#{loc.documento}"
+								style="font-weight:normal; font-size:12px" />
+						</p:column>
+
+						<p:column headerText="Nombre conductor" filterMatchMode="contains"
+							sortBy="#{loc.nombre}" style="font-size:14px">
+							<p:outputLabel value="#{loc.nombre}"
+								style="font-weight:normal; font-size:12px" />
+						</p:column>
+
+						<p:column headerText="Identificacion conductor"
+							filterMatchMode="contains"
+							sortBy="#{loc.tIdentificacionConductor}" style="font-size:14px">
+							<p:outputLabel value="#{loc.tIdentificacionConductor}"
+								style="font-weight:normal; font-size:12px" />
+						</p:column>
+
+
+
+
+
+						<p:column headerText="Acción"
+							style="font-size:14px; text-align:center;">
+
+
+
+							<p:commandButton id="btnAsignarPedido"
+								title="Seleccionar este registro"
+								style="background-origin: content-box; background-image: url('../imagenes/asignar.png'); background-size: cover; background-repeat:no-repeat; width:16px; height:16px; vertical-align:bottom; border:0; background-color:transparent"
+								action="#{administrarDespacho.asignarConductorSiesaDespacho(loc,'S')}"
+								value="" process="@this"
+								update=":form:messages, :form:pnlCrearCasoUso:pnlConductor" />
+
+
+
+
+
+
+
+						</p:column>
+
+
+					</p:dataTable>
+
+
+
+
+
+
+
+
+				</div>
+				<br />
+				<br />
+				<div align="center">
+					<p:commandButton id="btnCancelarPedidoSiesa"
+						style="font-size:14px; font-weight: normal !important;"
+						action="#{administrarDespacho.cancelarSeleccionConductor('S')}"
+						process="@this" value="#{mensaje.cancelar}"
+						update=":form:messages, :formConductorSiesa, :form:pnlCrearCasoUso:pnlConductor">
+
+					</p:commandButton>
+
+				</div>
+			</p:outputPanel>
+		</p:dialog>
+
+
+	</h:form>
+</ui:composition>

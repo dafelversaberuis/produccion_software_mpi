@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal.xhtml">
+
+	<ui:define name="body">
+		<style type="text/css">
+.ui-autocomp .ui-inputfield {
+	clear: left;
+	cursor: text;
+	list-style-type: none;
+	margin: 0;
+	min-height: 1px;
+	overflow: hidden;
+	width: 250px;
+}
+</style>
+
+
+
+		<h:form id="form">
+			<p:growl id="messages" showDetail="true" globalOnly="true" />
+
+			<p:remoteCommand name="onload" process="@this"
+				action="#{administrarSesionCliente.getNoRolAdmitido('IT')}"
+				autoRun="true" />
+			<div class="row x_title">
+				<div class="col-md-6">
+
+					<h2 class="project-title">#{mensaje.moduloDespachos}: Informe
+						de trazabilidad de ventas</h2>
+
+				</div>
+			</div>
+
+			<div align="center" class="titulo"></div>
+			<p:outputPanel id="pnlCasoUso">
+
+
+				<p:outputPanel id="pnlConsultar">
+					<p:accordionPanel>
+						<p:tab title="Criterios de consulta" titleStyle="font-size:16px"
+							closable="true">
+
+							<p:panelGrid columns="6" cellpadding="0" cellspacing="0"
+								styleClass="ui-panelgrid-blank" style="width:100%">
+
+
+
+
+
+								<p:outputLabel for="calFechaDesde" value="Fecha inicial"
+									style="font-weight:bold; font-size:14px" />
+
+								<p:calendar id="calFechaDesde"
+									value="#{administrarDespacho.despachoConsulta.tFechaDesde}"
+									pattern="dd/MM/yyyy" mask="true" style="font-size:14px" />
+
+
+
+
+
+
+								<p:outputLabel for="calFechaHasta" value="Fecha final"
+									style="font-weight:bold; font-size:14px" />
+
+								<p:calendar id="calFechaHasta"
+									value="#{administrarDespacho.despachoConsulta.tFechaHasta}"
+									pattern="dd/MM/yyyy" mask="true" style="font-size:14px" />
+
+
+
+
+
+								<p:spacer width="1" />
+								<p:message for="calFechaDesde" />
+								<p:spacer width="1" />
+								<p:message for="calFechaHasta" />
+
+
+
+
+
+							</p:panelGrid>
+
+							<p:spacer height="10" />
+							<div align="center">
+								<p:commandButton id="btnConsultar" style="font-size:14px;"
+									process=":form:pnlConsultar"
+									action="#{administrarDespacho.consultarInformeTrazabilidad()}"
+									update=":form:pnlConsultar, :form:pnlDltRegistros"
+									value="#{mensaje.consultar}" />
+
+								<p:spacer width="10" />
+								<p:commandButton id="btnBorrar"
+									style="font-size:14px; font-weight: normal; text-decoration: none !important;"
+									update=":form:pnlConsultar, :form:pnlDltRegistros"
+									action="#{administrarDespacho.cancelarConsultaDespachos()}"
+									process="@this" value="#{mensaje.cancelar}">
+
+									<p:resetInput target=":form:pnlConsultar" />
+
+								</p:commandButton>
+
+							</div>
+
+							<p:blockUI block=":form:pnlConsultar"
+								trigger="btnConsultar, btnBorrar">
+
+								<p:graphicImage value="../imagenes/cargando.gif" />
+
+
+							</p:blockUI>
+							<br />
+							<p:outputLabel
+								value="**Los resultados sólo involucran aquellos despachos que tengan de base al software SIESA"
+								style="font-size:10px" />
+
+						</p:tab>
+
+
+					</p:accordionPanel>
+				</p:outputPanel>
+
+				<p:spacer height="30" />
+				<p:accordionPanel id="pnlDltRegistros">
+					<p:tab title="Resultado de consulta" titleStyle="font-size:16px"
+						closable="true">
+
+
+						<p:dataTable var="loc" id="dtlRegistros" widgetVar="dtlRegistros"
+							value="#{administrarDespacho.despachos}" reflow="true" rows="10"
+							paginator="true" paginatorPosition="bottom"
+							draggableColumns="true"
+							emptyMessage="#{mensaje.noExistenciaRegistrosConsulta}">
+
+							<f:facet name="header">
+								<p:outputPanel style="text-align:right">
+									<p:inputText id="globalFilter" immediate="true"
+										onkeyup="PF('dtlRegistros').filter()" style="width:300px; "
+										placeholder="#{mensaje.palabrasClave}" />
+								</p:outputPanel>
+							</f:facet>
+
+							<p:column headerText="Fecha de despacho" sortBy="#{loc.fecha}"
+								filterStyle="display:none" filterMatchMode="contains"
+								filterBy="#{loc.fecha}" style="font-size:12px">
+								<p:outputLabel value="#{loc.fecha}" style="font-weight:normal">
+
+									<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+								</p:outputLabel>
+
+
+
+							</p:column>
+
+
+							<p:column headerText="# Despacho(Green Card)"
+								sortBy="#{loc.tNumeroEntregaCadena}" filterMatchMode="contains"
+								filterBy="#{loc.tNumeroEntregaCadena}"
+								filterStyle="display:none" style="font-size:12px; ">
+								<p:outputLabel value="#{loc.tNumeroEntregaCadena}"
+									style="font-weight:normal" />
+							</p:column>
+
+							<p:column headerText="# Orden de Pedido(Siesa)"
+								sortBy="#{loc.pedido}" filterMatchMode="contains"
+								filterStyle="display:none" filterBy="#{loc.pedido}"
+								style="font-size:12px">
+								<p:outputLabel value="#{loc.pedido}" style="font-weight:normal" />
+							</p:column>
+
+
+
+
+
+
+
+							<p:column headerText="# Remisión" filterStyle="display:none"
+								 sortBy="#{loc.numeroRemision}"
+								filterMatchMode="contains" filterBy="#{loc.numeroRemision}"
+								style="font-size:12px">
+								<p:outputLabel value="-" rendered="#{loc.numeroRemision==null}"
+									style="font-weight:normal" />
+
+								<p:outputLabel value="#{loc.numeroRemision} (con fecha: #{consultarFuncionesAPI.getFechaColombia(loc.fechaHoraPresionoRemision)})"
+									rendered="#{loc.numeroRemision!=null}"
+									style="font-weight:normal" />
+									
+								<p:outputLabel
+									value="(Remisiones anuladas: #{loc.remisionesAnuladas})"
+									rendered="#{loc.remisionesAnuladas!=null and loc.remisionesAnuladas!=''}"
+									style="font-weight:normal" />	
+							</p:column>
+
+
+
+						</p:dataTable>
+
+						<br />
+						<div align="center">
+							<p:commandButton id="btnImprimir" style="font-size:14px; "
+								rendered="#{administrarDespacho.despachos!=null and administrarDespacho.despachos.size()>0}"
+								action="#{administrarDespacho.imprimirInformeTrazabilidad()}"
+								immediate="true" ajax="false" value="IMPRIMIR INFORME EN PDF" />
+
+
+
+
+						</div>
+
+
+					</p:tab>
+				</p:accordionPanel>
+
+
+
+			</p:outputPanel>
+
+
+
+
+
+		</h:form>
+
+
+
+	</ui:define>
+</ui:composition>

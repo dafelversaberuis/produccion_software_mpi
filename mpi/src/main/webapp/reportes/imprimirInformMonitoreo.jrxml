@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="imprimirInformeMonitoreo" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="736" leftMargin="28" rightMargin="28" topMargin="22" bottomMargin="28" uuid="8af75068-6ed5-4475-b5ad-d8d0ce9d0930">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="pDespacho" class="java.lang.Object"/>
+	<parameter name="pLogo1" class="java.lang.String"/>
+	<parameter name="pLogo2" class="java.lang.String"/>
+	<parameter name="pFechaInicial" class="java.util.Date"/>
+	<parameter name="pFechaFinal" class="java.util.Date"/>
+	<field name="fecha" class="java.util.Date"/>
+	<field name="tNumeroEntregaCadena" class="java.lang.String"/>
+	<field name="cliente" class="java.lang.Object"/>
+	<field name="producto" class="java.lang.String"/>
+	<field name="obra" class="java.lang.String"/>
+	<field name="cantidadDespachada" class="java.lang.Integer"/>
+	<field name="ubicacion" class="java.lang.String"/>
+	<field name="presentacion" class="java.lang.String"/>
+	<field name="observaciones" class="java.lang.String"/>
+	<field name="numeroEntrega" class="java.lang.Integer"/>
+	<field name="diferenciaPeso" class="java.lang.Integer"/>
+	<field name="medidor" class="java.lang.Integer"/>
+	<field name="tipoDespacho" class="java.lang.String"/>
+	<pageHeader>
+		<band height="131">
+			<staticText>
+				<reportElement uuid="c27dbaa8-8b38-46b4-895b-776e6c67c140" x="137" y="56" width="447" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[COLOMBIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c27dbaa8-8b38-46b4-895b-776e6c67c140" x="137" y="14" width="447" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NIT. 890204814-4]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="b4989840-616f-4fb4-9c56-08a47f97ce17" x="539" y="90" width="97" height="38"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="c27dbaa8-8b38-46b4-895b-776e6c67c140" x="137" y="36" width="447" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[FLORIDABLANCA KM 2 ANILLO VIAL FLORIDA - GIRON ECOPARQUE NATURA Torre 1 Ofi. 515 Tel. 6788888]]></text>
+			</staticText>
+			<image hAlign="Center" onErrorType="Blank">
+				<reportElement uuid="97d0b404-45a6-458a-a5c5-48c9d977390a" x="270" y="89" width="164" height="40"/>
+				<imageExpression><![CDATA[$P{pLogo2}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="c27dbaa8-8b38-46b4-895b-776e6c67c140" x="137" y="26" width="447" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[BARRANCABERMEJA Cra 19 No 72 - 46 LA LIBERTAD Tel. (57-7)6228725 - 6228726 Fax 6010125
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="79a67d58-2207-490a-800f-e1c6505438b0" x="137" y="0" width="447" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MANUFACTURAS Y PROCESOS INDUSTRIALES LTDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c27dbaa8-8b38-46b4-895b-776e6c67c140" x="137" y="45" width="447" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[E-mail direccioncomercial@mpi.net.co www.mpi.net.co]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="b4989840-616f-4fb4-9c56-08a47f97ce17" x="636" y="90" width="97" height="38"/>
+			</rectangle>
+			<textField pattern="dd/MM/yy" isBlankWhenNull="true">
+				<reportElement uuid="0c0d7d27-c1b8-4c5a-a992-76ff2ccc5a0a" x="636" y="111" width="97" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pFechaFinal}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Left" onErrorType="Blank">
+				<reportElement uuid="9eae9bd4-c639-4fdd-8af4-ff43c2d1e242" x="0" y="0" width="74" height="46"/>
+				<imageExpression><![CDATA[$P{pLogo1}]]></imageExpression>
+			</image>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="0c0d7d27-c1b8-4c5a-a992-76ff2ccc5a0a" x="539" y="111" width="97" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pFechaInicial}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement uuid="f7b003c9-c795-464d-a8d2-318b4b37f7d5" x="539" y="90" width="97" height="20" backcolor="#CCCCCC"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="5ab24ba2-7897-4d6a-aab3-df7a19d92ebc" x="636" y="90" width="97" height="20" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="537" y="87" width="92" height="28"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA MÍNIMA RESULTADOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="639" y="87" width="92" height="28"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA MÁXIMA RESULTADOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c27dbaa8-8b38-46b4-895b-776e6c67c140" x="137" y="70" width="447" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INFORME DE MONITOREO DE DESPACHOS]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="24">
+			<rectangle>
+				<reportElement uuid="5aca6893-09a6-4f30-bb99-2f3fd95f7a80" x="0" y="0" width="736" height="24" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="641" y="0" width="99" height="22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[OBSERVACIONES]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="1613f523-8692-46c7-ba36-735a95a00dfe" x="0" y="0" width="86" height="24" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="9" y="2" width="86" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[FECHA DESPACHO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" x="155" y="0" width="104" height="24" backcolor="#CCCCCC"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" x="259" y="0" width="104" height="24" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="162" y="2" width="85" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[CLIENTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="262" y="2" width="97" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[PRODUCTO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" x="359" y="0" width="86" height="24" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="363" y="2" width="70" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[OBRA]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" x="445" y="0" width="58" height="24" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="451" y="2" width="44" height="22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[CANTIDAD (Kg)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" x="503" y="0" width="68" height="24" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="505" y="0" width="66" height="22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[UBICACIÓN]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" x="571" y="0" width="80" height="24" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="576" y="0" width="80" height="22"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[PRESENTACIÓN]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" positionType="Float" stretchType="RelativeToBandHeight" x="86" y="0" width="69" height="24" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="89" y="2" width="63" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[DESPACHO No.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<rectangle>
+				<reportElement uuid="1613f523-8692-46c7-ba36-735a95a00dfe" positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="86" height="20" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" positionType="Float" stretchType="RelativeToBandHeight" x="86" y="0" width="69" height="20" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" positionType="Float" stretchType="RelativeToBandHeight" x="155" y="0" width="104" height="20" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" positionType="Float" stretchType="RelativeToBandHeight" x="259" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" positionType="Float" stretchType="RelativeToBandHeight" x="359" y="0" width="86" height="20" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" positionType="Float" stretchType="RelativeToBandHeight" x="445" y="0" width="58" height="20" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" positionType="Float" stretchType="RelativeToBandHeight" x="503" y="0" width="68" height="20" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" positionType="Float" stretchType="RelativeToBandHeight" x="571" y="0" width="80" height="20" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" positionType="Float" stretchType="RelativeToBandHeight" x="651" y="0" width="85" height="20" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</rectangle>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="65bc3f6a-caa6-4545-9174-53adf69197d4" x="5" y="2" width="74" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="29ea5c73-780d-42d8-aff7-366ece5dd092" x="89" y="2" width="63" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $F{tNumeroEntregaCadena}!=null ? ""+$F{tNumeroEntregaCadena} : ""+$F{numeroEntrega} )]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="ce0f3642-7dc9-46da-9a67-7bb80fb78335" x="158" y="2" width="101" height="15"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente}.nit+", "+$F{cliente}.nombre]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="70a4bca2-ca0b-4d2a-9e99-6c2ff2550183" x="262" y="2" width="97" height="15"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{producto}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="0d77b14d-9068-4f4d-ac88-769884e87633" x="363" y="2" width="82" height="15"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{obra}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="0376b2a2-5b94-4010-9f70-20ecab5c4cb6" x="451" y="2" width="44" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $F{tipoDespacho}!=null && $F{tipoDespacho}.equals("B") ? $F{diferenciaPeso} : $F{medidor} )]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="ae678f52-71ed-4712-92d7-098538c9cda1" x="506" y="2" width="60" height="15"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ubicacion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="e29d72fc-8ea9-4ecd-99d5-a759c088ccda" x="574" y="2" width="77" height="15"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{presentacion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="37ae9dba-2e7b-454c-ab15-fd5dff4f47be" x="656" y="2" width="75" height="15"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{observaciones}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="19">
+			<staticText>
+				<reportElement uuid="da266d69-008d-40fe-bd15-c48731cd6cf6" x="90" y="0" width="556" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ESTE DOCUMENTO ES PROPIEDAD DE MANUFACTURAS Y PROCESO INDUSTRIALES LTDA, PROHÍBIDA SU REPRODUCCIÓN]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

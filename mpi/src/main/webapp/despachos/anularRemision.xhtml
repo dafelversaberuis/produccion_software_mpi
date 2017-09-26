@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<h:form id="formAnular">
+		<p:dialog header="Anular Remisión" closable="false" width="400"
+			widgetVar="panelAnular" resizable="true" responsive="true">
+			<p:panel id="pnlAnular">
+
+
+
+				<div align="center">
+					<p:panelGrid columns="1" cellpadding="0" cellspacing="0"
+						styleClass="ui-panelgrid-blank">
+						<p:outputLabel
+							value="¿Desea anular la remisión? (Recuerde que debe tener ciertas condiciones en el software de SIESA, por ejemplo pedido comprometido)"
+							style="font-weight:bold; font-size:14px" />
+
+			
+
+					</p:panelGrid>
+
+				</div>
+				<br />
+				<div align="center">
+					<p:commandButton id="btnAnular" style="font-size:14px"
+						action="#{administrarDespacho.asignarDespacho(administrarDespacho.despachoTransaccion,'GENERAR_ANULAR')}"
+						value="Si, Anularla"
+						process=":formAnular:pnlAnular"
+						update=":formAnular:pnlAnular, :form:messages, :form:pnlDltRegistros" />
+					<p:spacer width="10" />
+					<p:commandButton id="btnCancelarAnular"
+						style="font-size:14px; font-weight: normal !important;"
+						action="#{administrarDespacho.cancelarDespachoTransaccion('MODAL_ANULAR')}"
+						process="@this" value="#{mensaje.cancelar}" update=":form">
+						<p:resetInput
+							target=":formAnular, :form:messages, :form:pnlDltRegistros" />
+					</p:commandButton>
+
+				</div>
+
+				<p:outputLabel value="#{mensaje.informacionRequerida}"
+					style="font-size:10px" />
+				<p:blockUI block=":formAnular:pnlAnular"
+					trigger="btnAnular, btnCancelarAnular">
+					<p:graphicImage value="../imagenes/cargando.gif" />
+				</p:blockUI>
+
+
+			</p:panel>
+		</p:dialog>
+
+
+	</h:form>
+</ui:composition>

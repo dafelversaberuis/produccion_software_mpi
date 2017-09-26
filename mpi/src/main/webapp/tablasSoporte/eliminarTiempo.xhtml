@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<h:form id="formEliminar">
+		<p:dialog header="Eliminar registro" closable="false"
+			widgetVar="panelEliminacion" resizable="true" responsive="true">
+			<p:outputPanel id="outputpanelEliminacion">
+
+				<div align="center">
+					<p:panelGrid columns="2" cellpadding="0" cellspacing="0"
+						styleClass="ui-panelgrid-blank">
+
+						<p:outputLabel for="lstPrimeraBahia" value="Primera bahía"
+							style="font-weight:bold; font-size:14px; " />
+
+
+
+
+						<p:selectOneMenu label="Primera bahía"
+							style="width:100%; font-size:14px" id="lstPrimeraBahia"
+							required="true" disabled="true"
+							value="#{hacerMantenimiento.tiempoTransaccion.primeraBahia.id}">
+							<f:selectItems value="#{administrarDespacho.itemsBahiasActivas}" />
+						</p:selectOneMenu>
+
+
+
+						<p:outputLabel for="lstSegundaBahia" value="Segunda bahía"
+							style="font-weight:bold; font-size:14px; " />
+
+
+						<p:selectOneMenu label="Segunda bahía" disabled="true"   
+							style="width:100%; font-size:14px" id="lstSegundaBahia"
+							value="#{hacerMantenimiento.tiempoTransaccion.segundaBahia.id}">  
+							<f:selectItems value="#{administrarDespacho.itemsBahiasActivas}" />
+						</p:selectOneMenu>
+
+
+
+
+
+
+						<p:outputLabel for="txtTiempo" value="Tiempo estándar(minutos)"
+							style="font-weight:bold; font-size:14px; " />
+						<p:inputText id="txtTiempo" disabled="true"
+							value="#{hacerMantenimiento.tiempoTransaccion.tiempoEstandar}"
+							required="true" label="Tiempo estándar"
+							style="width:100%; font-size:14px; ">
+
+
+						</p:inputText>
+
+
+
+
+
+
+						<p:outputLabel for="lstTipoDespacho"
+							value="#{mensaje.tipoDespacho}"
+							style="font-weight:bold; font-size:14px" />
+
+						<p:selectOneMenu label="#{mensaje.tipoDespacho}"
+							style="width:100%; font-size:14px; " id="lstTipoDespacho"
+							required="true" disabled="true"
+							value="#{hacerMantenimiento.tiempoTransaccion.tipoDespacho}">
+							<f:selectItem itemValue="" itemLabel="#{mensaje.comboVacio}" />
+							<f:selectItem itemValue="B" itemLabel="#{mensaje.porBascula}" />
+							<f:selectItem itemValue="M" itemLabel="#{mensaje.porMedidor}" />
+
+
+
+						</p:selectOneMenu>
+
+
+
+
+					</p:panelGrid>
+
+				</div>
+				<div align="center">
+					<p:commandButton value="#{mensaje.eliminar}" style="font-size:14px"
+						action="#{hacerMantenimiento.eliminarTiempo()}"
+						update=":form, :formEliminar" />
+
+					<p:spacer width="10" />
+					<p:commandButton id="btnCancelarEliminar"
+						style="font-size:14px; font-weight: normal !important;"
+						action="#{hacerMantenimiento.cancelarTiempoTransaccion('MODAL_ELIMINAR')}"
+						process="@this" value="#{mensaje.cancelar}" update=":form">
+
+					</p:commandButton>
+
+				</div>
+			</p:outputPanel>
+		</p:dialog>
+
+
+	</h:form>
+</ui:composition>

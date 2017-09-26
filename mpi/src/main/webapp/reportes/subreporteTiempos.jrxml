@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="imprimirInformeTiempos" language="groovy" pageWidth="736" pageHeight="562" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="736" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryWithPageHeaderAndFooter="true" uuid="8af75068-6ed5-4475-b5ad-d8d0ce9d0930">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="15"/>
+	<property name="ireport.y" value="0"/>
+	<style name="color">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[($F{tTiempoEstandar} - $F{tTiempoGastado})<0]]></conditionExpression>
+			<style forecolor="#FF0033"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="pDespacho" class="java.lang.Object"/>
+	<parameter name="pLogo1" class="java.lang.String"/>
+	<parameter name="pLogo2" class="java.lang.String"/>
+	<parameter name="pFechaInicial" class="java.util.Date"/>
+	<parameter name="pFechaFinal" class="java.util.Date"/>
+	<parameter name="pLabel" class="java.lang.String"/>
+	<field name="fecha" class="java.util.Date"/>
+	<field name="tNumeroEntregaCadena" class="java.lang.String"/>
+	<field name="cliente" class="java.lang.Object"/>
+	<field name="producto" class="java.lang.String"/>
+	<field name="obra" class="java.lang.String"/>
+	<field name="cantidadDespachada" class="java.lang.Integer"/>
+	<field name="ubicacion" class="java.lang.String"/>
+	<field name="presentacion" class="java.lang.String"/>
+	<field name="observaciones" class="java.lang.String"/>
+	<field name="numeroEntrega" class="java.lang.Integer"/>
+	<field name="bahia" class="java.lang.Object"/>
+	<field name="tipoDespacho" class="java.lang.String"/>
+	<field name="personalCreoVenta" class="java.lang.Object"/>
+	<field name="personalBasculaInicial" class="java.lang.Object"/>
+	<field name="personalBasculaFinal" class="java.lang.Object"/>
+	<field name="personalBahia" class="java.lang.Object"/>
+	<field name="tTiempoGastado" class="java.lang.Long"/>
+	<field name="tTiempoEstandar" class="java.lang.Long"/>
+	<columnHeader>
+		<band height="24">
+			<rectangle>
+				<reportElement uuid="5aca6893-09a6-4f30-bb99-2f3fd95f7a80" x="0" y="0" width="736" height="24" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="652" y="0" width="80" height="22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[DESVIACIÓN (Minutos)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="1613f523-8692-46c7-ba36-735a95a00dfe" x="0" y="0" width="86" height="24" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="9" y="2" width="86" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[FECHA DESPACHO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" x="155" y="0" width="208" height="24" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="162" y="2" width="189" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[CLIENTE]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" x="363" y="0" width="140" height="24" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="363" y="2" width="108" height="22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[TIPO DE DESPACHO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" x="471" y="0" width="100" height="24" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="471" y="0" width="95" height="22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[TIEMPO OPERACIÓN (Minutos)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" x="571" y="0" width="80" height="24" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="569" y="0" width="80" height="22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[TIEMPO ESTÁNDAR (Minutos)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" positionType="Float" stretchType="RelativeToBandHeight" x="86" y="0" width="69" height="24" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d9d449c8-a441-42cf-ad41-4c991b627f03" x="89" y="2" width="63" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[DESPACHO No.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<rectangle>
+				<reportElement uuid="1613f523-8692-46c7-ba36-735a95a00dfe" positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="86" height="20" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" positionType="Float" stretchType="RelativeToBandHeight" x="86" y="0" width="69" height="20" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" positionType="Float" stretchType="RelativeToBandHeight" x="155" y="0" width="208" height="20" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" positionType="Float" stretchType="RelativeToBandHeight" x="363" y="0" width="140" height="20" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" positionType="Float" stretchType="RelativeToBandHeight" x="471" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" positionType="Float" stretchType="RelativeToBandHeight" x="571" y="0" width="80" height="20" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="42d722f0-3058-4ca4-89c0-2613d1789b77" positionType="Float" stretchType="RelativeToBandHeight" x="651" y="0" width="85" height="20" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+			</rectangle>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="65bc3f6a-caa6-4545-9174-53adf69197d4" x="5" y="2" width="74" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="29ea5c73-780d-42d8-aff7-366ece5dd092" x="89" y="2" width="63" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $F{tNumeroEntregaCadena}!=null ? ""+$F{tNumeroEntregaCadena} : ""+$F{numeroEntrega} )]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="ce0f3642-7dc9-46da-9a67-7bb80fb78335" x="158" y="2" width="205" height="15"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente}.nit+", "+$F{cliente}.nombre]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="0376b2a2-5b94-4010-9f70-20ecab5c4cb6" x="365" y="2" width="106" height="15"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $F{tipoDespacho}!=null && $F{tipoDespacho}=='B'? "BÁSCULA" : ( $F{tipoDespacho}!=null && $F{tipoDespacho}=='M' ? "MEDIDOR DE FLUJO" : "NO APLICA" ) )]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="ae678f52-71ed-4712-92d7-098538c9cda1" x="484" y="2" width="79" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tTiempoGastado}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="e29d72fc-8ea9-4ecd-99d5-a759c088ccda" x="570" y="2" width="77" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tTiempoEstandar}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="37ae9dba-2e7b-454c-ab15-fd5dff4f47be" style="color" x="656" y="2" width="75" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tTiempoEstandar} - $F{tTiempoGastado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="4"/>
+	</pageFooter>
+	<summary>
+		<band height="170">
+			<bar3DChart>
+				<chart>
+					<reportElement uuid="3ad773b1-d6e7-4d14-ba7a-c2e489318e24" x="9" y="8" width="722" height="154" isPrintWhenDetailOverflows="true"/>
+					<chartTitle>
+						<font size="9"/>
+						<titleExpression><![CDATA["GRÁFICA-"+$P{pLabel}]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle/>
+					<chartLegend position="Right">
+						<font size="9"/>
+					</chartLegend>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["TIEMPO OPERACIÓN"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{tNumeroEntregaCadena}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{tTiempoGastado}]]></valueExpression>
+						<labelExpression><![CDATA[""+$F{tTiempoGastado}]]></labelExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["TIEMPO ESTÁNDAR"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{tNumeroEntregaCadena}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{tTiempoEstandar}]]></valueExpression>
+						<labelExpression><![CDATA[""+$F{tTiempoEstandar}]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisLabelExpression><![CDATA["DESPACHO"]]></categoryAxisLabelExpression>
+					<categoryAxisFormat>
+						<axisFormat>
+							<labelFont>
+								<font size="9"/>
+							</labelFont>
+						</axisFormat>
+					</categoryAxisFormat>
+					<valueAxisLabelExpression><![CDATA["TIEMPO (MINUTOS)"]]></valueAxisLabelExpression>
+				</bar3DPlot>
+			</bar3DChart>
+		</band>
+	</summary>
+	<noData>
+		<band height="18">
+			<staticText>
+				<reportElement uuid="22b183ce-0c99-4a62-a5e1-aa3900a3b5fa" x="1" y="0" width="736" height="15"/>
+				<textElement markup="none">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[NO EXISTEN REGISTROS QUE MOSTRAR]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>

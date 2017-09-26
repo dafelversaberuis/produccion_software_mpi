@@ -1,0 +1,517 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal.xhtml">
+
+	<ui:define name="body">
+		<style type="text/css">
+.columnaIgual {
+	width: 50%;
+}
+
+.INACTIVO {
+	background-color: #D3D3D3 !important;
+}
+</style>
+		<h:form id="form">
+			<p:growl id="messages" showDetail="true" globalOnly="true" />
+			<p:remoteCommand name="onload" process="@this"
+				action="#{administrarSesionCliente.getNoRolAdmitido('B2')}"
+				autoRun="true" />
+
+			<div class="row x_title">
+				<div class="col-md-6">
+
+					<h2 class="project-title">#{mensaje.moduloDespachos}:
+						#{mensaje.basculaFinal}</h2>
+
+				</div>
+			</div>
+
+			<div align="center" class="titulo"></div>
+			<p:outputPanel id="pnlCasoUso">
+				<p:spacer height="10" />
+
+
+
+				<p:outputPanel id="pnlConsultar">
+					<p:accordionPanel>
+						<p:tab title="#{mensaje.actualizarDespachoBascula}"
+							titleStyle="font-size:16px" closable="true">
+
+							<p:panelGrid columns="2" cellpadding="0" cellspacing="0"
+								styleClass="ui-panelgrid-blank" style="width:100%"
+								columnClasses="columnaIgual,columnaIgual">
+
+
+								<p:fieldset legend="#{mensaje.datosEntrada}" toggleable="true"
+									toggleSpeed="500">
+
+									<p:panelGrid columns="2" cellpadding="0" cellspacing="0"
+										styleClass="ui-panelgrid-blank" style="width:100%">
+
+										
+
+										<p:outputLabel for="txtDespacho" value="#{mensaje.despacho}"
+											style="font-weight:bold; font-size:14px; " />
+										<p:inputText id="txtDespacho" required="true"
+											value="#{administrarDespacho.despachoTransaccion.numeroInterno}"
+											label="#{mensaje.despacho}"
+											style="width:100%; font-size:14px; ">
+
+
+											<p:ajax
+												listener="#{administrarDespacho.consultarDespachoPesoFinal()}"
+												process="@this"
+												update="@this, pnlResumen, :form:messages, pnlPesoInicial1, pnlPesoInicial2, pnlPesoInicial3, pnlPesoInicial4, lstBascula, pnlBotones, pnlPesoFinal1, pnlPesoFinal2, pnlPesoFinal3, pnlPesoFinal4, pnlPesoFinal5, pnlPesoFinal6, pnlPesoFinal7, pnlPesoFinal8, pnlPesoFinal9, pnlPesoFinal10, pnlPesoFinal11, pnlPesoFinal12, pnlPesoFinal20, pnlPesoFinal21, pnlPesoFinal22, pnlPesoFinal23 "
+												event="blur" />
+
+
+										</p:inputText>
+
+
+										<p:spacer width="1" />
+										<p:message for="txtDespacho" />
+										
+										
+										<p:outputLabel for="lstBascula" value="#{mensaje.bascula}"
+											style="font-weight:bold; font-size:14px" />
+
+										<p:selectOneMenu label="#{mensaje.bascula}" required="true"
+											style="width:100%; font-size:14px" id="lstBascula"
+											value="#{administrarDespacho.despachoTransaccion.basculaFinal.id}">
+											<f:selectItems
+												value="#{administrarDespacho.itemsBasculasFinalesActivas}" />
+										</p:selectOneMenu>
+
+
+
+										<p:outputPanel id="pnlPesoInicial1">
+											<p:outputLabel for="txtPesoInicial"
+												rendered="#{administrarDespacho.despachoTransaccion.id!=null}"
+												value="#{mensaje.pesoInicial}"
+												style="font-weight:bold; font-size:14px; " />
+										</p:outputPanel>
+
+										<p:outputPanel id="pnlPesoInicial2">
+											<p:inputText id="txtPesoInicial" required="true"
+												rendered="#{administrarDespacho.despachoTransaccion.id!=null}"
+												value="#{administrarDespacho.despachoTransaccion.pesoInicial}"
+												readonly="true" styleClass="INACTIVO"
+												label="#{mensaje.pesoInicial}"
+												style="width:100%; font-size:14px; " />
+										</p:outputPanel>
+
+										<p:outputPanel id="pnlPesoInicial3">
+											<p:spacer width="1" />
+										</p:outputPanel>
+										<p:outputPanel id="pnlPesoInicial4">
+											<p:message for="txtPesoInicial"
+												rendered="#{administrarDespacho.despachoTransaccion.id!=null}" />
+										</p:outputPanel>
+
+
+										<p:outputPanel id="pnlPesoFinal1">
+											<p:outputLabel for="txtPesoFinal"
+												rendered="#{administrarDespacho.despachoTransaccion.id!=null}"
+												value="#{mensaje.pesoFinal}"
+												style="font-weight:bold; font-size:14px; " />
+
+
+
+											<p:outputLabel
+												rendered="#{administrarDespacho.despachoTransaccion.id!=null and administrarDespacho.despachoTransaccion.numeroRemision!=null}"
+												value="(No es posible modificar, el pedido ya fue Remitido)"
+												style="font-weight:bold; font-size:14px; color:red" />
+
+
+										</p:outputPanel>
+
+										<p:outputPanel id="pnlPesoFinal2">
+											<p:inputText id="txtPesoFinal" required="true"
+												rendered="#{administrarDespacho.despachoTransaccion.id!=null}"
+												value="#{administrarDespacho.despachoTransaccion.pesoFinal}"
+												readonly="#{administrarDespacho.getEstiloBasculaFinal()=='INACTIVO'}"
+												label="#{mensaje.pesoFinal}"
+												styleClass="administrarDespacho.getEstiloBasculaFinal()"
+												style="width:100%; font-size:14px; ">
+
+												<p:ajax
+													listener="#{administrarDespacho.calcularDiferencia()}"
+													process="@this"
+													update="@this, pnlResumen, :form:messages, pnlPesoFinal9, pnlPesoFinal10, pnlPesoFinal11, pnlPesoFinal12, pnlPesoFinal20, pnlPesoFinal21, pnlPesoFinal22, pnlPesoFinal23 "
+													event="change" />
+
+											</p:inputText>
+
+
+										</p:outputPanel>
+
+										<p:outputPanel id="pnlPesoFinal3">
+											<p:spacer width="1" />
+										</p:outputPanel>
+										<p:outputPanel id="pnlPesoFinal4">
+											<p:message for="txtPesoFinal"
+												rendered="#{administrarDespacho.despachoTransaccion.id!=null}" />
+										</p:outputPanel>
+
+
+
+
+										<p:outputPanel id="pnlPesoFinal23">
+											<p:outputLabel for="txtPesoFinal2"
+												rendered="#{administrarDespacho.despachoTransaccion.id!=null and administrarDespacho.despachoTransaccion.presentacion!= mensaje.aGranel}"
+												value="Destare" style="font-weight:bold; font-size:14px; " />
+
+
+
+											<p:outputLabel
+												rendered="#{administrarDespacho.despachoTransaccion.id!=null and administrarDespacho.despachoTransaccion.numeroRemision!=null}"
+												value="(No es posible modificar, el pedido ya fue Remitido)"
+												style="font-weight:bold; font-size:14px; color:red" />
+
+
+										</p:outputPanel>
+
+										<p:outputPanel id="pnlPesoFinal20">
+											<p:inputText id="txtPesoFinal2" required="true"
+												rendered="#{administrarDespacho.despachoTransaccion.id!=null and administrarDespacho.despachoTransaccion.presentacion!= mensaje.aGranel}"
+												value="#{administrarDespacho.despachoTransaccion.destare}"
+												readonly="#{administrarDespacho.getEstiloBasculaFinal()=='INACTIVO'}"
+												label="Destare"
+												styleClass="administrarDespacho.getEstiloBasculaFinal()"
+												style="width:100%; font-size:14px; ">
+
+												<p:ajax
+													listener="#{administrarDespacho.calcularDiferencia()}"
+													process="@this"
+													update="@this, pnlResumen, :form:messages, pnlPesoFinal9, pnlPesoFinal10, pnlPesoFinal11, pnlPesoFinal12, pnlPesoFinal20, pnlPesoFinal21, pnlPesoFinal22, pnlPesoFinal23 "
+													event="change" />
+
+											</p:inputText>
+
+
+										</p:outputPanel>
+
+										<p:outputPanel id="pnlPesoFinal21">
+											<p:spacer width="1" />
+										</p:outputPanel>
+										<p:outputPanel id="pnlPesoFinal22">
+											<p:message for="txtPesoFinal2"
+												rendered="#{administrarDespacho.despachoTransaccion.id!=null}" />
+										</p:outputPanel>
+
+
+
+
+
+										<p:outputPanel id="pnlPesoFinal9">
+											<p:outputLabel for="txtNeto"
+												rendered="#{administrarDespacho.despachoTransaccion.id!=null}"
+												value="#{mensaje.pesoNeto}"
+												style="font-weight:bold; font-size:14px; " />
+										</p:outputPanel>
+
+										<p:outputPanel id="pnlPesoFinal10">
+											<p:inputText id="txtNeto" required="true"
+												rendered="#{administrarDespacho.despachoTransaccion.id!=null}"
+												value="#{administrarDespacho.despachoTransaccion.diferenciaPeso}"
+												readonly="true" styleClass="INACTIVO"
+												label="#{mensaje.pesoNeto}"
+												style="width:100%; font-size:14px; " />
+										</p:outputPanel>
+
+										<p:outputPanel id="pnlPesoFinal11">
+											<p:spacer width="1" />
+										</p:outputPanel>
+										<p:outputPanel id="pnlPesoFinal12">
+											<p:message for="txtNeto"
+												rendered="#{administrarDespacho.despachoTransaccion.id!=null}" />
+										</p:outputPanel>
+
+
+
+										<p:outputPanel id="pnlPesoFinal5">
+											<p:outputLabel for="txtTicket"
+												rendered="#{administrarDespacho.despachoTransaccion.id!=null}"
+												value="#{mensaje.ticketSalida}"
+												style="font-weight:bold; font-size:14px; " />
+										</p:outputPanel>
+
+										<p:outputPanel id="pnlPesoFinal6">
+											<p:inputText id="txtTicket" required="true"
+												rendered="#{administrarDespacho.despachoTransaccion.id!=null}"
+												value="#{administrarDespacho.despachoTransaccion.ticketSalida}"
+												readonly="#{administrarDespacho.getEstiloBasculaFinal2()=='INACTIVO'}"
+												styleClass="#{administrarDespacho.getEstiloBasculaFinal2()}"
+												label="#{mensaje.ticketSalida}"
+												style="width:100%; font-size:14px; " />
+										</p:outputPanel>
+
+										<p:outputPanel id="pnlPesoFinal7">
+											<p:spacer width="1" />
+										</p:outputPanel>
+										<p:outputPanel id="pnlPesoFinal8">
+											<p:message for="txtTicket"
+												rendered="#{administrarDespacho.despachoTransaccion.id!=null}" />
+										</p:outputPanel>
+
+
+
+
+
+
+
+
+
+
+
+
+
+									</p:panelGrid>
+
+
+								</p:fieldset>
+								<p:fieldset legend="#{mensaje.resumenDespacho}"
+									toggleable="true" toggleSpeed="500">
+									<p:outputPanel id="pnlResumen">
+										<p:panelGrid columns="2" cellpadding="0" cellspacing="0"
+											styleClass="ui-panelgrid-blank" style="width:100%">
+
+
+											<p:outputLabel for="calFecha" value="#{mensaje.fecha}"
+												style="font-weight:bold; font-size:14px;" />
+
+											<p:inputText id="calFecha" readonly="true"
+												styleClass="INACTIVO"
+												value="#{administrarDespacho.despachoTransaccion.fecha} #{administrarDespacho.despachoTransaccion.hora}:#{administrarDespacho.despachoTransaccion.minuto}:#{administrarDespacho.despachoTransaccion.segundo}"
+												label="#{mensaje.despacho}"
+												style="width:100%; font-size:14px; ">
+
+												<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" />
+
+											</p:inputText>
+
+
+											<p:outputLabel for="txtCliente"
+												value="#{mensaje.clienteNormal}"
+												style="font-weight:bold; font-size:14px" />
+											
+												
+											<p:inputTextarea styleClass="INACTIVO" id="txtCliente"
+												value="#{administrarDespacho.despachoTransaccion.cliente.nit.trim()} #{administrarDespacho.despachoTransaccion.cliente.nombre}"
+												rows="2" label="#{mensaje.clienteNormal}" readonly="true"
+												autoResize="false"
+												style="font-size:14px; width:100%; min-height:50px" />	
+												
+
+
+											<p:outputLabel for="txtObra" value="#{mensaje.obra}"
+												style="font-weight:bold; font-size:14px" />
+											<p:inputText id="txtObra"
+												value="#{administrarDespacho.despachoTransaccion.obra}"
+												readonly="true" styleClass="INACTIVO"
+												label="#{mensaje.obra}" style="width:100%; font-size:14px; " />
+
+
+											<p:outputLabel for="txtConductor"
+												value="#{mensaje.conductorNormal}"
+												style="font-weight:bold; font-size:14px" />
+											<p:inputText id="txtConductor" readonly="true"
+												styleClass="INACTIVO"
+												value="#{administrarDespacho.despachoTransaccion.conductor.documento} #{administrarDespacho.despachoTransaccion.conductor.nombre}"
+												label="#{mensaje.conductorNormal}"
+												style="width:100%; font-size:14px; " />
+
+											<p:outputLabel for="txtPlaca" value="#{mensaje.placa}"
+												style="font-weight:bold; font-size:14px" />
+											<p:inputText id="txtPlaca" readonly="true"
+												styleClass="INACTIVO"
+												value="#{administrarDespacho.despachoTransaccion.placa}"
+												label="#{mensaje.placa}"
+												style="width:100%; font-size:14px; " />
+
+
+
+											<p:outputLabel for="txtRemolque" value="#{mensaje.remolque}"
+												style="font-weight:bold; font-size:14px" />
+											<p:inputText id="txtRemolque" readonly="true"
+												styleClass="INACTIVO"
+												value="#{administrarDespacho.despachoTransaccion.remolque}"
+												label="#{mensaje.remolque}"
+												style="width:100%; font-size:14px; " />
+
+
+											<p:outputLabel for="txtProducto" value="#{mensaje.producto}"
+												style="font-weight:bold; font-size:14px" />
+											<p:inputText id="txtProducto" readonly="true"
+												styleClass="INACTIVO"
+												value="#{administrarDespacho.despachoTransaccion.producto}"
+												label="#{mensaje.producto}"
+												style="width:100%; font-size:14px; " />
+
+
+
+											<p:outputLabel value="#{mensaje.basculaPesajeInicial}"
+												rendered="#{administrarDespacho.despachoTransaccion.basculaInicial.id!=null}"
+												style="font-weight:bold; font-size:14px" />
+											<p:inputText readonly="true" styleClass="INACTIVO"
+												value="#{administrarDespacho.getBasculaCompleta(administrarDespacho.despachoTransaccion.basculaInicial.id).nombre}"
+												label="#{mensaje.basculaPesajeInicial}"
+												rendered="#{administrarDespacho.despachoTransaccion.basculaInicial.id!=null}"
+												style="width:100%; font-size:14px; " />
+
+
+
+											<p:outputLabel value="#{mensaje.basculaPesajeFinal}"
+												rendered="#{administrarDespacho.despachoTransaccion.basculaFinal.id!=null}"
+												style="font-weight:bold; font-size:14px" />
+											<p:inputText readonly="true" styleClass="INACTIVO"
+												value="#{administrarDespacho.getBasculaCompleta(administrarDespacho.despachoTransaccion.basculaFinal.id).nombre}"
+												label="#{mensaje.basculaPesajeFinal}"
+												rendered="#{administrarDespacho.despachoTransaccion.basculaFinal.id!=null}"
+												style="width:100%; font-size:14px; " />
+
+
+											<p:outputLabel for="txtBahia" value="#{mensaje.bahia}"
+												style="font-weight:bold; font-size:14px" />
+
+
+											<p:inputText id="txtBahia" readonly="true"
+												styleClass="INACTIVO"
+												value="#{administrarDespacho.despachoTransaccion.bahia.nombre}"
+												label="#{mensaje.bahia}"
+												style="width:100%; font-size:14px; " />
+
+											<p:outputLabel value="#{mensaje.numeroEntrega}"
+												style="font-weight:bold; font-size:14px; " />
+
+
+
+											<p:inputText readonly="true" styleClass="INACTIVO"
+												rendered="#{administrarDespacho.despachoTransaccion.tNumeroEntregaCadena!=null}"
+												value="#{administrarDespacho.despachoTransaccion.tNumeroEntregaCadena}"
+												label="#{mensaje.numeroEntrega}"
+												style="width:100%; font-size:14px;  " />
+
+											<p:inputText readonly="true" styleClass="INACTIVO"
+												rendered="#{administrarDespacho.despachoTransaccion.tNumeroEntregaCadena==null}"
+												value="#{administrarDespacho.despachoTransaccion.numeroEntrega}"
+												label="#{mensaje.numeroEntrega}"
+												style="width:100%; font-size:14px;  " />
+
+
+											<p:outputLabel value="#{mensaje.cantidadDespachar}"
+												style="font-weight:bold; font-size:14px" />
+											<p:inputText readonly="true" styleClass="INACTIVO"
+												value="#{administrarDespacho.despachoTransaccion.cantidadDespacho}"
+												label="#{mensaje.cantidadDespachar}"
+												style="width:100%; font-size:14px; " />
+
+
+											<p:outputLabel 
+												value="#{mensaje.presentacion}"
+												style="font-weight:bold; font-size:14px" />
+											<p:inputText  readonly="true" styleClass="INACTIVO"
+												rendered="#{administrarDespacho.despachoTransaccion.presentacion!=mensaje.baldes and administrarDespacho.despachoTransaccion.presentacion!=mensaje.aGranel and administrarDespacho.despachoTransaccion.presentacion!=mensaje.cajas and administrarDespacho.despachoTransaccion.presentacion!=mensaje.cunetes and administrarDespacho.despachoTransaccion.presentacion!=mensaje.tambores and administrarDespacho.despachoTransaccion.presentacion!=mensaje.bolsas}"
+												value="#{administrarDespacho.despachoTransaccion.presentacion}"
+												required="true" label="#{mensaje.presentacion}"
+												style="width:100%; font-size:14px; " />
+
+											<p:selectOneMenu label="#{mensaje.presentacion}"
+												rendered="#{administrarDespacho.despachoTransaccion.presentacion==mensaje.baldes or administrarDespacho.despachoTransaccion.presentacion==mensaje.aGranel or administrarDespacho.despachoTransaccion.presentacion==mensaje.cajas or administrarDespacho.despachoTransaccion.presentacion==mensaje.cunetes or administrarDespacho.despachoTransaccion.presentacion==mensaje.tambores or administrarDespacho.despachoTransaccion.presentacion==mensaje.bolsas}"
+												style="width:100%; font-size:14px; " id="lstPresentacion" disabled="true"
+												value="#{administrarDespacho.despachoTransaccion.presentacion}">
+												<f:selectItem itemValue="" itemLabel="#{mensaje.comboVacio}" />
+												<f:selectItem itemValue="#{mensaje.aGranel}"
+													itemLabel="#{mensaje.aGranel}" />
+												<f:selectItem itemValue="#{mensaje.bolsas}"
+													itemLabel="#{mensaje.bolsas}" />
+												<f:selectItem itemValue="#{mensaje.cajas}"
+													itemLabel="#{mensaje.cajas}" />
+												<f:selectItem itemValue="#{mensaje.cunetes}"
+													itemLabel="#{mensaje.cunetes}" />
+												<f:selectItem itemValue="#{mensaje.tambores}"
+													itemLabel="#{mensaje.tambores}" />
+
+												<f:selectItem itemValue="#{mensaje.baldes}"
+													itemLabel="#{mensaje.baldes}" />
+											</p:selectOneMenu>
+
+
+											<p:outputLabel for="txtObservacionesInternas"
+												value="Observaciones internas"
+												style="font-weight:bold; font-size:14px; " />
+
+
+											<p:inputTextarea id="txtObservacionesInternas" rows="7"
+												readonly="true" styleClass="INACTIVO"
+												value="#{administrarDespacho.despachoTransaccion.observacionesInternas}"
+												label="Observaciones internas"
+												style="width:100%; font-size:14px; min-height:70px" />
+
+
+										</p:panelGrid>
+
+
+									</p:outputPanel>
+
+								</p:fieldset>
+
+							</p:panelGrid>
+
+							<p:spacer height="10" />
+							<div align="center">
+								<p:outputPanel id="pnlBotones">
+									<p:commandButton id="btnLector" process="@this" update="@this"
+										value="LectorCodBr" style="display:none" />
+
+									<p:commandButton id="btnGuardar" style="font-size:14px;"
+										process=":form" update=":form, :formImprimir"
+										action="#{administrarDespacho.editarDespachoBasculaPesoFinal()}"
+										rendered="#{administrarDespacho.despachoTransaccion.id!=null and (administrarDespacho.despachoTransaccion.tipoDespacho=='M' or (administrarDespacho.despachoTransaccion.tipoDespacho=='B' and administrarDespacho.despachoTransaccion.basculaInicial!=null and administrarDespacho.despachoTransaccion.basculaInicial.id!=null)) and  administrarDespacho.despachoTransaccion.lote!=null}"
+										value="#{mensaje.guardar}" />
+
+									<p:spacer width="10" />
+									<p:commandButton id="btnBorrar"
+										style="font-size:14px; font-weight: normal; text-decoration: none !important;"
+										process="@this" update=":form"
+										action="#{administrarDespacho.cancelarDespachoBasculaPesoFinal()}"
+										value="#{mensaje.cancelar}">
+
+										<p:resetInput target=":form:pnlConsultar" />
+
+									</p:commandButton>
+									<p:defaultCommand target="btnLector" />
+								</p:outputPanel>
+
+							</div>
+
+							<p:blockUI block=":form:pnlConsultar"
+								trigger="btnGuardar, btnBorrar">
+
+								<p:graphicImage value="../imagenes/cargando.gif" />
+
+
+							</p:blockUI>
+
+
+						</p:tab>
+
+					</p:accordionPanel>
+				</p:outputPanel>
+
+
+				<p:spacer height="1000" />
+
+			</p:outputPanel>
+		</h:form>
+		<ui:include src="/despachos/imprimirTicket.xhtml" />
+		<p:spacer height="1000" />
+
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<h:form id="formTrazabilidad">
+		<p:dialog header="#{mensaje.verTrazabilidad}" closable="false"
+			width="700" widgetVar="panelTrazabiidad" resizable="true"
+			responsive="true">
+			<p:outputPanel id="outputpanelTrazabilidad">
+
+
+				<div align="center">
+
+
+
+					<p:dataTable var="loc" id="dtlRegistros" widgetVar="dtlRegistros"
+						value="#{administrarDespacho.auditorias}" reflow="true" rows="5"
+						paginator="true" paginatorPosition="bottom"
+						draggableColumns="true"
+						emptyMessage="#{mensaje.noExistenciaRegistros}">
+
+
+
+
+						<p:column headerText="#{mensaje.fecha}" style="font-size:14px">
+							<p:outputLabel
+								value="#{loc.fecha}, #{loc.hora}:#{loc.minuto}:#{loc.segundo}"
+								style="font-weight:normal" />
+						</p:column>
+
+						<p:column headerText="#{mensaje.persona}" style="font-size:14px">
+							<p:outputLabel
+								value="#{loc.personal.nombres} #{loc.personal.apellidos}"
+								style="font-weight:normal" />
+
+						</p:column>
+
+						<p:column headerText="#{mensaje.concepto}" style="font-size:14px">
+							<p:outputLabel value="#{loc.concepto}" style="font-weight:normal" />
+
+						</p:column>
+
+
+
+					</p:dataTable>
+
+					<p:commandButton id="btnTrazabilidad"
+						style="font-size:14px; font-weight: normal !important;"
+						action="#{administrarDespacho.cancelarDespachoTransaccion('MODAL_TRAZABILIDAD')}"
+						process="@this" value="#{mensaje.cerrar}" update=":form">
+
+					</p:commandButton>
+
+				</div>
+			</p:outputPanel>
+		</p:dialog>
+
+
+	</h:form>
+</ui:composition>

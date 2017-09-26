@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<h:form id="formEliminar">
+		<p:dialog header="#{mensaje.eliminarConductor}" closable="false"
+			widgetVar="panelEliminacion" resizable="true" responsive="true">
+			<p:outputPanel id="outputpanelEliminacion">
+
+				<div align="center">
+					<p:panelGrid columns="3" cellpadding="0" cellspacing="0"
+						styleClass="ui-panelgrid-blank">
+
+						<p:outputLabel for="txtNombre" value="#{mensaje.nombres}"
+							style="font-weight:bold; font-size:14px" />
+						<p:inputText id="txtNombre" disabled="true"
+							value="#{administrarPersonal.conductorTransaccion.nombre}"
+							label="#{mensaje.nombre}" style="width:100%; font-size:14px" />
+						<p:message for="txtNombre" />
+
+						<p:outputLabel for="txtDocumento" value="#{mensaje.documento}"
+							style="font-weight:bold; font-size:14px" />
+						<p:inputText id="txtDocumento" disabled="true"
+							value="#{administrarPersonal.conductorTransaccion.documento}"
+							label="#{mensaje.documento}" style="width:100%; font-size:14px" />
+						<p:message for="txtDocumento" />
+
+						<p:outputLabel for="txtPlaca" value="#{mensaje.placa}"
+							style="font-weight:bold; font-size:14px" />
+						<p:inputText id="txtPlaca" disabled="true"
+							value="#{administrarPersonal.conductorTransaccion.placa}"
+							label="#{mensaje.placa}" style="width:100%; font-size:14px" />
+						<p:message for="txtPlaca" />
+
+
+						<p:outputLabel for="txtRemolque" value="#{mensaje.remolque}"
+							style="font-weight:bold; font-size:14px" />
+						<p:inputText id="txtRemolque" disabled="true"
+							value="#{administrarPersonal.conductorTransaccion.remolque}"
+							label="#{mensaje.remolque}" style="width:100%; font-size:14px" />
+						<p:message for="txtRemolque" />
+
+
+
+					</p:panelGrid>
+
+				</div>
+				<div align="center">
+					<p:commandButton value="#{mensaje.eliminar}" style="font-size:14px"
+						action="#{administrarPersonal.eliminarConductor()}"
+						update=":form, :formEliminar" />
+
+					<p:spacer width="10" />
+					<p:commandButton id="btnCancelarEliminar"
+						style="font-size:14px; font-weight: normal !important;"
+						action="#{administrarPersonal.cancelarConductorTransaccion('MODAL_ELIMINAR')}"
+						process="@this" value="#{mensaje.cancelar}" update=":form">
+
+					</p:commandButton>
+
+				</div>
+			</p:outputPanel>
+		</p:dialog>
+
+
+	</h:form>
+</ui:composition>

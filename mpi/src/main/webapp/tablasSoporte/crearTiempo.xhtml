@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal.xhtml">
+
+	<ui:define name="body">
+		<h:form id="form">
+			<p:growl id="messages" showDetail="true" globalOnly="true" />
+			<p:remoteCommand name="onload" process="@this"
+				action="#{administrarSesionCliente.getNoRolAdmitido('PT')}"
+				autoRun="true" />
+
+			<div class="row x_title">
+				<div class="col-md-6">
+
+					<h2 class="project-title">#{mensaje.moduloTablasSoporte}:
+						Tiempos estándar</h2>
+
+
+
+
+				</div>
+			</div>
+
+			<div align="center" class="titulo"></div>
+			<p:outputPanel id="pnlCasoUso">
+				<p:spacer height="10" />
+				<p:accordionPanel id="pnlCrearCasoUso">
+					<p:tab title="Crear tiempo estándar para combinación de bahías"
+						titleStyle="font-size:16px" closable="true">
+						<p:panelGrid columns="4" cellpadding="0" cellspacing="0"
+							style="width:100%" styleClass="ui-panelgrid-blank">
+
+
+
+							<p:outputLabel for="lstPrimeraBahia" value="Primera bahía"
+								style="font-weight:bold; font-size:14px; " />
+
+
+							<p:selectOneMenu label="Primera bahía"
+								style="width:100%; font-size:14px" id="lstPrimeraBahia"
+								required="true"
+								value="#{hacerMantenimiento.tiempo.primeraBahia.id}">
+								<f:selectItems value="#{administrarDespacho.itemsBahiasActivas}" />
+							</p:selectOneMenu>
+
+
+
+							<p:outputLabel for="lstSegundaBahia" value="Segunda bahía"
+								style="font-weight:bold; font-size:14px; " />
+
+
+
+							<p:selectOneMenu label="Segunda bahía"
+								style="width:100%; font-size:14px" id="lstSegundaBahia"
+								value="#{hacerMantenimiento.tiempo.segundaBahia.id}">
+								<f:selectItems value="#{administrarDespacho.itemsBahiasActivas}" />
+							</p:selectOneMenu>
+
+							<p:spacer width="1" />
+
+							<p:message for="lstPrimeraBahia" />
+
+							<p:spacer width="1" />
+
+							<p:message for="lstSegundaBahia" />
+
+
+
+
+							<p:outputLabel for="txtTiempo" value="Tiempo estándar(minutos)"
+								style="font-weight:bold; font-size:14px; " />
+							<p:inputText id="txtTiempo"
+								value="#{hacerMantenimiento.tiempo.tiempoEstandar}"
+								required="true" label="Tiempo estándar" style="font-size:14px;">
+
+
+							</p:inputText>
+
+
+
+
+
+
+							<p:outputLabel for="lstTipoDespacho"
+								value="#{mensaje.tipoDespacho}"
+								style="font-weight:bold; font-size:14px" />
+
+							<p:selectOneMenu label="#{mensaje.tipoDespacho}"
+								style="width:100%; font-size:14px; " id="lstTipoDespacho"
+								required="true"
+								value="#{hacerMantenimiento.tiempo.tipoDespacho}">
+								<f:selectItem itemValue="" itemLabel="#{mensaje.comboVacio}" />
+								<f:selectItem itemValue="B" itemLabel="#{mensaje.porBascula}" />
+								<f:selectItem itemValue="M" itemLabel="#{mensaje.porMedidor}" />
+
+
+
+							</p:selectOneMenu>
+							<p:spacer width="1" />
+
+							<p:message for="txtTiempo" />
+							<p:spacer width="1" />
+
+							<p:message for="lstTipoDespacho" />
+
+
+
+
+
+						</p:panelGrid>
+						<p:spacer height="10" />
+						<div align="center">
+							<p:commandButton id="btnCrearCasoUso"
+								action="#{hacerMantenimiento.crearTiempo()}"
+								style="font-size:14px" process=":form"
+								value="#{mensaje.guardar}" update=":form" />
+							<p:spacer width="10" />
+							<p:commandButton id="btnBorrarCasoUso"
+								action="#{hacerMantenimiento.cancelarTiempo()}"
+								style="font-size:14px; font-weight: normal !important;"
+								process="@this" value="#{mensaje.cancelar}" update=":form">
+								<p:resetInput target=":form:pnlCasoUso" />
+							</p:commandButton>
+						</div>
+						<p:outputLabel value="#{mensaje.informacionRequerida}"
+							style="font-size:10px" />
+						<p:blockUI block=":form:pnlCrearCasoUso"
+							trigger="btnCrearCasoUso, btnBorrarCasoUso">
+							<p:graphicImage value="../imagenes/cargando.gif" />
+						</p:blockUI>
+					</p:tab>
+				</p:accordionPanel>
+
+				<p:spacer height="30" />
+				<p:accordionPanel id="pnlDltRegistros">
+					<p:tab title="Relación tiempos estándar con bahías"
+						titleStyle="font-size:16px" closable="true">
+
+
+						<p:dataTable var="loc" id="dtlRegistros" widgetVar="dtlRegistros"
+							value="#{hacerMantenimiento.tiempos}" reflow="true" rows="10"
+							paginator="true" paginatorPosition="bottom"
+							draggableColumns="true"
+							emptyMessage="#{mensaje.noExistenciaRegistros}">
+
+
+
+							<p:column headerText="Primera Bahía"
+								sortBy="#{loc.primeraBahia.id}" style="font-size:14px">
+								<p:outputLabel value="#{loc.primeraBahia.nombre}"
+									style="font-weight:normal" />
+							</p:column>
+
+
+							<p:column headerText="Segunda Bahía"
+								sortBy="#{loc.segundaBahia.id}" style="font-size:14px">
+								<p:outputLabel value="#{loc.segundaBahia.nombre}"
+									style="font-weight:normal"
+									rendered="#{loc.segundaBahia.id!=null}" />
+
+								<p:outputLabel value="-" style="font-weight:normal"
+									rendered="#{loc.segundaBahia.id==null}" />
+							</p:column>
+
+
+							<p:column headerText="#{mensaje.tipoDespacho}"
+								filterStyle="display:none" sortBy="#{loc.tipoDespacho}"
+								style="font-size:12px">
+								<p:outputLabel value="#{mensaje.bascula}"
+									style="font-weight:normal" rendered="#{loc.tipoDespacho=='B'}" />
+								<p:outputLabel value="#{mensaje.medidor}"
+									style="font-weight:normal" rendered="#{loc.tipoDespacho=='M'}" />
+
+
+							</p:column>
+
+
+							<p:column headerText="Tiempo estándar"
+								sortBy="#{loc.tiempoEstandar}"
+								style="font-size:14px; text-align:right">
+								<p:outputLabel value="#{loc.tiempoEstandar}"
+									style="font-weight:normal" />
+
+
+							</p:column>
+
+
+							<p:column headerText="#{mensaje.acciones}"
+								style="font-size:14px; text-align:center;">
+
+
+
+								<p:commandButton id="btnIrEditar"
+									style="background-origin: content-box; background-image: url('../imagenes/editar.png'); background-size: cover; background-repeat:no-repeat; width:16px; height:16px; vertical-align:bottom; border:0; background-color:transparent"
+									action="#{hacerMantenimiento.asignarTiempo(loc,'MODAL_EDITAR')}"
+									value="" process=":form:pnlDltRegistros" update=":formEditar" />
+
+
+
+
+
+								<p:tooltip for="btnIrEditar" value="#{mensaje.editar}"
+									trackMouse="true" />
+
+
+								<p:commandButton id="btnIrEliminar"
+									style="background-origin: content-box; background-image: url('../imagenes/borrar.png'); background-size: cover; background-repeat:no-repeat; width:16px; height:16px; vertical-align:bottom; border:0; background-color:transparent"
+									action="#{hacerMantenimiento.asignarTiempo(loc,'MODAL_ELIMINAR')}"
+									value="" process=":form:pnlDltRegistros" update=":formEliminar" />
+
+
+
+
+
+								<p:tooltip for="btnIrEliminar" value="#{mensaje.eliminar}"
+									trackMouse="true" />
+
+
+
+
+
+							</p:column>
+
+
+
+
+						</p:dataTable>
+
+
+					</p:tab>
+				</p:accordionPanel>
+
+
+
+			</p:outputPanel>
+		</h:form>
+		<ui:include src="/tablasSoporte/editarTiempo.xhtml" />
+		<ui:include src="/tablasSoporte/eliminarTiempo.xhtml" />
+		<p:spacer height="500" />
+
+
+	</ui:define>
+</ui:composition>

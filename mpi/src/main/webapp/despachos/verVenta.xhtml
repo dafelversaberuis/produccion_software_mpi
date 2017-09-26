@@ -1,0 +1,824 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<h:form id="formVisualizacion">
+		<p:dialog header="#{mensaje.verTodaInformacionDespacho}"
+			closable="false" width="600" widgetVar="panelVisualizacion"
+			resizable="true" height="400" responsive="true">
+			<p:outputPanel id="outputpanelVisualizacion">
+
+				<div align="left">
+
+
+					<p:panelGrid columns="2" cellpadding="0" cellspacing="0"
+						styleClass="ui-panelgrid-blank" style="width:100%">
+
+
+						<p:outputLabel for="txtDespacho" value="#{mensaje.despacho}"
+							style="font-weight:bold; font-size:14px; " />
+
+
+						<p:inputText disabled="true" id="txtDespacho"
+							value="#{administrarDespacho.despachoTransaccion.numeroInterno}"
+							label="#{mensaje.despacho}"
+							style="width:100%; font-size:14px; font-size:20px" />
+
+						<p:outputLabel for="calFecha" value="#{mensaje.fecha}"
+							style="font-weight:bold; font-size:14px; " />
+
+						<p:inputText disabled="true" id="calFecha"
+							value="#{administrarDespacho.despachoTransaccion.fecha} #{administrarDespacho.despachoTransaccion.hora}:#{administrarDespacho.despachoTransaccion.minuto}:#{administrarDespacho.despachoTransaccion.segundo}"
+							label="#{mensaje.despacho}"
+							style="width:100%; font-size:14px; font-size:20px">
+
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" />
+
+						</p:inputText>
+
+
+
+
+					</p:panelGrid>
+
+
+
+
+
+					<p:fieldset legend="#{mensaje.datosCliente}" toggleable="true"
+						collapsed="true" toggleSpeed="500">
+
+
+
+
+						<p:panelGrid columns="2" cellpadding="0" cellspacing="0"
+							styleClass="ui-panelgrid-blank" style="width:100%">
+
+							<p:outputLabel for="txtNit" value="#{mensaje.nit}"
+								style="font-weight:bold; font-size:14px" />
+							<p:inputText disabled="true" id="txtNit"
+								value="#{administrarDespacho.despachoTransaccion.cliente.nit}"
+								label="#{mensaje.nit}" style="width:100%; font-size:14px; ">
+
+								<p:ajax
+									listener="#{administrarDespacho.consultarClienteFrecuenteTransaccion()}"
+									process="@this" update="@this, txtCliente, :form:messages"
+									event="change" />
+
+							</p:inputText>
+
+
+							<p:outputLabel for="txtCliente" value="#{mensaje.clienteNormal}"
+								style="font-weight:bold; font-size:14px" />
+							<p:inputText disabled="true" id="txtCliente"
+								value="#{administrarDespacho.despachoTransaccion.cliente.nombre}"
+								label="#{mensaje.clienteNormal}"
+								style="width:100%; font-size:14px; " />
+
+
+
+
+						</p:panelGrid>
+
+						<p:panelGrid columns="2" cellpadding="0" cellspacing="0"
+							styleClass="ui-panelgrid-blank" style="width:100%">
+
+
+							<p:outputLabel for="txtOrden" value="#{mensaje.ordenCompra}"
+								style="font-weight:bold; font-size:14px" />
+							<p:inputText disabled="true" id="txtOrden"
+								value="#{administrarDespacho.despachoTransaccion.ordenCompra}"
+								label="#{mensaje.ordenCompra}"
+								style="width:100%; font-size:14px; " />
+
+							<p:outputLabel for="txtPedido" value="#{mensaje.pedido}"
+								style="font-weight:bold; font-size:14px" />
+							<p:inputText disabled="true" id="txtPedido"
+								value="#{administrarDespacho.despachoTransaccion.pedido}"
+								label="#{mensaje.pedido}" style="width:100%; font-size:14px; " />
+
+
+
+							<p:outputLabel for="txtObra" value="#{mensaje.obra}"
+								style="font-weight:bold; font-size:14px" />
+							<p:inputText disabled="true" id="txtObra"
+								value="#{administrarDespacho.despachoTransaccion.obra}"
+								label="#{mensaje.obra}" style="width:100%; font-size:14px; " />
+
+
+
+							<p:outputLabel for="txtNumeroEntrega"
+								rendered="#{administrarDespacho.despachoTransaccion.tNumeroEntregaCadena==null}"
+								value="#{mensaje.numeroEntrega}"
+								style="font-weight:bold; font-size:14px; " />
+
+
+
+							<p:inputText id="txtNumeroEntrega" disabled="true"
+								rendered="#{administrarDespacho.despachoTransaccion.tNumeroEntregaCadena==null}"
+								value="#{administrarDespacho.despachoTransaccion.numeroEntrega}"
+								label="#{mensaje.numeroEntrega}"
+								style="width:100%; font-size:14px;  " />
+
+
+							<p:outputLabel for="txtNumeroEntregaV2"
+								rendered="#{administrarDespacho.despachoTransaccion.tNumeroEntregaCadena!=null}"
+								value="#{mensaje.numeroEntrega}"
+								style="font-weight:bold; font-size:14px; " />
+
+
+
+							<p:inputText id="txtNumeroEntregaV2" disabled="true"
+								rendered="#{administrarDespacho.despachoTransaccion.tNumeroEntregaCadena!=null}"
+								value="#{administrarDespacho.despachoTransaccion.tNumeroEntregaCadena}"
+								label="#{mensaje.numeroEntrega}"
+								style="width:100%; font-size:14px;  " />
+
+
+
+						</p:panelGrid>
+
+
+					</p:fieldset>
+
+					<br />
+
+
+
+
+					<p:fieldset legend="#{mensaje.infoConductor}" toggleable="true"
+						collapsed="true" toggleSpeed="500">
+
+						<p:panelGrid columns="2" cellpadding="0" cellspacing="0"
+							styleClass="ui-panelgrid-blank" style="width:100%">
+
+							<p:outputLabel for="txtDocumento"
+								value="#{mensaje.documentoConductor}"
+								style="font-weight:bold; font-size:14px" />
+							<p:inputText disabled="true" id="txtDocumento"
+								value="#{administrarDespacho.despachoTransaccion.conductor.documento}"
+								label="#{mensaje.documentoConductor}"
+								style="width:100%; font-size:14px; ">
+
+								<p:ajax
+									listener="#{administrarDespacho.consultarConductorFrecuenteTransaccion()}"
+									process="@this"
+									update="@this, txtConductor, txtPlaca, txtRemolque, :form:messages"
+									event="change" />
+
+
+							</p:inputText>
+
+
+
+							<p:outputLabel for="txtConductor"
+								value="#{mensaje.conductorNormal}"
+								style="font-weight:bold; font-size:14px" />
+							<p:inputText disabled="true" id="txtConductor"
+								value="#{administrarDespacho.despachoTransaccion.conductor.nombre}"
+								label="#{mensaje.conductorNormal}"
+								style="width:100%; font-size:14px; " />
+
+
+
+
+
+
+
+
+
+							<p:outputLabel for="txtPlaca" value="#{mensaje.placa}"
+								style="font-weight:bold; font-size:14px" />
+							<p:inputText disabled="true" id="txtPlaca"
+								value="#{administrarDespacho.despachoTransaccion.placa}"
+								label="#{mensaje.placa}" style="width:100%; font-size:14px; " />
+
+							<p:outputLabel for="txtRemolque" value="#{mensaje.remolque}"
+								style="font-weight:bold; font-size:14px" />
+							<p:inputText disabled="true" id="txtRemolque"
+								value="#{administrarDespacho.despachoTransaccion.remolque}"
+								label="#{mensaje.remolque}" style="width:100%; font-size:14px; " />
+
+
+
+
+						</p:panelGrid>
+
+					</p:fieldset>
+					<br />
+					<p:fieldset legend="#{mensaje.infoTransporte}" toggleable="true"
+						collapsed="true" toggleSpeed="500">
+						<p:panelGrid columns="2" cellpadding="0" cellspacing="0"
+							styleClass="ui-panelgrid-blank" style="width:100%">
+							<p:outputLabel for="txtTransporte" value="#{mensaje.transporte}"
+								style="font-weight:bold; font-size:14px" />
+							<p:inputText disabled="true" id="txtTransporte"
+								value="#{administrarDespacho.despachoTransaccion.transporte}"
+								label="#{mensaje.transporte}"
+								style="width:100%; font-size:14px; " />
+
+
+							<p:outputLabel for="txtFlete" value="#{mensaje.fletePagado}"
+								style="font-weight:bold; font-size:14px" />
+							<p:inputText disabled="true" id="txtFlete"
+								value="#{administrarDespacho.despachoTransaccion.flete}"
+								label="#{mensaje.flete}" style="width:100%; font-size:14px; " />
+
+
+
+
+						</p:panelGrid>
+
+					</p:fieldset>
+
+
+					<br />
+					<p:fieldset legend="#{mensaje.detalleArticulo}" toggleable="true"
+						collapsed="true" toggleSpeed="500">
+
+						<p:panelGrid columns="2" cellpadding="0" cellspacing="0"
+							styleClass="ui-panelgrid-blank" style="width:100%">
+
+							<p:outputLabel for="txtCodigo" value="#{mensaje.codigoArticulo}"
+								style="font-weight:bold; font-size:14px" />
+							<p:inputText disabled="true" id="txtCodigo"
+								value="#{administrarDespacho.despachoTransaccion.codigoProducto}"
+								label="#{mensaje.codigoArticulo}"
+								style="width:100%; font-size:14px; " />
+
+							<p:outputLabel for="txtProducto" value="#{mensaje.producto}"
+								style="font-weight:bold; font-size:14px" />
+							<p:inputText disabled="true" id="txtProducto"
+								value="#{administrarDespacho.despachoTransaccion.producto}"
+								label="#{mensaje.producto}" style="width:100%; font-size:14px; " />
+
+
+
+
+
+						</p:panelGrid>
+					</p:fieldset>
+
+
+					<br />
+					<p:fieldset legend="#{mensaje.cantidadTipodespacho}"
+						toggleable="true" collapsed="true" toggleSpeed="500">
+
+						<p:panelGrid columns="2" cellpadding="0" cellspacing="0"
+							styleClass="ui-panelgrid-blank" style="width:100%">
+
+
+							<p:outputLabel for="txtCantidad"
+								value="#{mensaje.cantidadDespachar}"
+								style="font-weight:bold; font-size:14px" />
+							<p:inputText disabled="true" id="txtCantidad"
+								value="#{administrarDespacho.despachoTransaccion.cantidadDespacho}"
+								label="#{mensaje.cantidadDespachar}"
+								style="width:100%; font-size:14px; " />
+
+							<p:outputLabel for="txtPresentacion"
+								value="#{mensaje.presentacion}"
+								style="font-weight:bold; font-size:14px" />
+							<p:inputText disabled="true" id="txtPresentacion"
+								value="#{administrarDespacho.despachoTransaccion.presentacion}"
+								label="#{mensaje.presentacion}"
+								style="width:100%; font-size:14px; " />
+
+							<p:outputLabel for="txtUbicacion" value="#{mensaje.ubicacion}"
+								style="font-weight:bold; font-size:14px" />
+							<p:inputText disabled="true" id="txtUbicacion"
+								value="#{administrarDespacho.despachoTransaccion.ubicacion}"
+								label="#{mensaje.ubicacion}"
+								style="width:100%; font-size:14px; " />
+
+
+							<p:outputLabel for="lstTipoDespacho"
+								value="#{mensaje.tipoDespacho}"
+								style="font-weight:bold; font-size:14px" />
+
+							<p:selectOneMenu disabled="true" label="#{mensaje.tipoDespacho}"
+								style="width:100%; font-size:14px; " id="lstTipoDespacho"
+								value="#{administrarDespacho.despachoTransaccion.tipoDespacho}">
+								<f:selectItem itemValue="" itemLabel="#{mensaje.comboVacio}" />
+								<f:selectItem itemValue="B" itemLabel="#{mensaje.porBascula}" />
+								<f:selectItem itemValue="M" itemLabel="#{mensaje.porMedidor}" />
+								<f:selectItem itemValue="N" itemLabel="#{mensaje.noAplica}" />
+							</p:selectOneMenu>
+
+
+							<p:outputLabel for="lstBahia" value="#{mensaje.bahiaDespacho}"
+								rendered="#{administrarDespacho.despachoTransaccion.tipoDespacho!='N'}"
+								style="font-weight:bold; font-size:14px" />
+
+							<p:selectOneMenu disabled="true" label="#{mensaje.bahiaDespacho}"
+								rendered="#{administrarDespacho.despachoTransaccion.tipoDespacho!='N'}"
+								style="width:100%; font-size:14px" id="lstBahia"
+								value="#{administrarDespacho.despachoTransaccion.bahia.id}">
+								<f:selectItems value="#{administrarDespacho.itemsBahiasActivas}" />
+							</p:selectOneMenu>
+
+
+
+
+						</p:panelGrid>
+
+					</p:fieldset>
+					<br />
+
+					<p:fieldset legend="#{mensaje.adjuncionDocumentos}"
+						toggleable="true" collapsed="true" toggleSpeed="500">
+
+						<p:panelGrid columns="2" cellpadding="0" cellspacing="0"
+							styleClass="ui-panelgrid-blank" style="width:100%">
+
+
+
+							<p:outputLabel for="lstTarjeta"
+								value="#{mensaje.tarjetaEmergencia}"
+								style="font-weight:bold; font-size:14px" />
+
+
+
+
+
+
+							<p:selectBooleanCheckbox disabled="true"
+								value="#{administrarDespacho.despachoTransaccion.tTarjetaEmergencia}"
+								label="#{mensaje.tarjetaEmergencia}" id="lstTarjeta" />
+
+
+							<p:outputLabel for="lstContraMuestra"
+								value="#{mensaje.contraMuestra}"
+								style="font-weight:bold; font-size:14px" />
+
+
+
+							<p:selectBooleanCheckbox
+								value="#{administrarDespacho.despachoTransaccion.tContraMuestra}"
+								disabled="true" label="#{mensaje.contraMuestra}"
+								id="lstContraMuestra" />
+
+
+
+
+
+
+
+
+							<p:outputLabel for="lstHoja" value="#{mensaje.hojaSeguridad}"
+								style="font-weight:bold; font-size:14px" />
+
+
+							<p:selectBooleanCheckbox disabled="true"
+								value="#{administrarDespacho.despachoTransaccion.tHoja}"
+								label="#{mensaje.hojaSeguridad}" id="lstHoja" />
+
+
+
+
+
+							<p:outputLabel for="lstReporte" value="#{mensaje.reporteCalidad}"
+								style="font-weight:bold; font-size:14px" />
+
+							<p:selectBooleanCheckbox disabled="true"
+								value="#{administrarDespacho.despachoTransaccion.tReporteCalidad}"
+								label="#{mensaje.reporteCalidad}" id="lstReporte" />
+
+
+
+						</p:panelGrid>
+
+					</p:fieldset>
+					<br />
+
+					<p:fieldset legend="#{mensaje.infoBasculasYMedidor}"
+						toggleable="true" collapsed="true" toggleSpeed="500">
+
+						<p:panelGrid columns="2" cellpadding="0" cellspacing="0"
+							styleClass="ui-panelgrid-blank" style="width:100%">
+
+							<p:outputLabel for="txtPesoInicial"
+								value="#{mensaje.pesoInicial}"
+								style="font-weight:bold; font-size:14px; " />
+
+							<p:inputText id="txtPesoInicial"
+								value="#{administrarDespacho.despachoTransaccion.pesoInicial}"
+								disabled="true" label="#{mensaje.pesoInicial}"
+								style="width:100%; font-size:14px; " />
+
+							<p:outputLabel for="txtPesoFinal" value="#{mensaje.pesoFinal}"
+								style="font-weight:bold; font-size:14px; " />
+
+							<p:inputText id="txtPesoFinal"
+								value="#{administrarDespacho.despachoTransaccion.pesoFinal}"
+								disabled="true" label="#{mensaje.pesoFinal}"
+								style="width:100%; font-size:14px; " />
+
+							<p:outputLabel for="txtNeto" value="#{mensaje.pesoNeto}"
+								style="font-weight:bold; font-size:14px; " />
+
+							<p:inputText id="txtNeto"
+								value="#{administrarDespacho.despachoTransaccion.diferenciaPeso}"
+								disabled="true" label="#{mensaje.pesoNeto}"
+								style="width:100%; font-size:14px; " />
+
+
+							<p:outputLabel for="txtTicket" value="#{mensaje.ticketSalida}"
+								style="font-weight:bold; font-size:14px; " />
+
+							<p:inputText id="txtTicket"
+								value="#{administrarDespacho.despachoTransaccion.ticketSalida}"
+								disabled="true" label="#{mensaje.ticketSalida}"
+								style="width:100%; font-size:14px; " />
+
+
+						</p:panelGrid>
+					</p:fieldset>
+					<br />
+					<p:fieldset legend="#{mensaje.infoBahia}" toggleable="true"
+						collapsed="true" toggleSpeed="500">
+
+						<p:panelGrid columns="2" cellpadding="0" cellspacing="0"
+							styleClass="ui-panelgrid-blank" style="width:100%">
+
+							<p:outputLabel for="txtTicketMedidor"
+								value="#{mensaje.ticketMedidor}"
+								style="font-weight:bold; font-size:14px; " />
+
+
+							<p:inputText id="txtTicketMedidor" disabled="true"
+								value="#{administrarDespacho.despachoTransaccion.ticketMedidor}"
+								label="#{mensaje.ticketMedidor}"
+								style="width:100%; font-size:14px; " />
+
+							<p:outputLabel for="txtValorMedidor" value="Medidor-Contador:"
+								style="font-weight:bold; font-size:14px; " />
+
+							<p:inputText id="txtValorMedidor" disabled="true"
+								value="#{administrarDespacho.despachoTransaccion.medidor}"
+								label="Medidor-Contador" readonly="true"
+								style="width:50%; font-size:14px; " />
+
+							<p:outputLabel value="Medidor-Temperatura(°C):"
+								style="font-weight:bold; font-size:14px; " />
+
+							<p:inputText disabled="true"
+								value="#{administrarDespacho.despachoTransaccion.temperaturaMedidor}"
+								label="Medidor-Temperatura:" readonly="true"
+								style="font-size:14px; " />
+
+							<p:outputLabel value="Medidor-Fecha:"
+								style="font-weight:bold; font-size:14px; " />
+
+							<p:inputText disabled="true"
+								value="#{administrarDespacho.despachoTransaccion.fechaMedidor}"
+								label="Medidor-Fecha:" readonly="true" style="font-size:14px; " />
+
+							<p:outputLabel value="Medidor-Hora inicial:"
+								style="font-weight:bold; font-size:14px; " />
+
+							<p:inputText disabled="true"
+								value="#{consultarFuncionesAPI.getHoraJava(administrarDespacho.despachoTransaccion.horaInicioMedidor)}"
+								label="Medidor-Hora inicial:" readonly="true"
+								style="font-size:14px; " />
+
+							<p:outputLabel value="Medidor-Hora final:"
+								style="font-weight:bold; font-size:14px; " />
+
+							<p:inputText disabled="true"
+								value="#{consultarFuncionesAPI.getHoraJava(administrarDespacho.despachoTransaccion.horaFinMedidor)}"
+								label="Medidor-Hora final:" readonly="true"
+								style="font-size:14px; " />
+
+							<p:outputLabel for="txtDespachadoDe"
+								value="#{mensaje.despachadoDe}"
+								style="font-weight:bold; font-size:14px; " />
+
+							<p:inputText id="txtDespachadoDe" disabled="true"
+								value="#{administrarDespacho.despachoTransaccion.despachadoDe}"
+								label="#{mensaje.despachadoDe}"
+								style="width:100%; font-size:14px; " />
+
+							<p:outputLabel for="txtLote" value="#{mensaje.lote}"
+								style="font-weight:bold; font-size:14px; " />
+
+							<p:inputText id="txtLote"
+								value="#{administrarDespacho.despachoTransaccion.lote}"
+								disabled="true" label="#{mensaje.lote}"
+								style="width:100%; font-size:14px; " />
+
+							<p:outputLabel for="txtDespachada"
+								value="#{mensaje.cantidadDespachada}"
+								style="font-weight:bold; font-size:14px; " />
+
+							<p:inputText id="txtDespachada"
+								value="#{administrarDespacho.despachoTransaccion.cantidadDespachada}"
+								disabled="true" label="#{mensaje.cantidadDespachada}"
+								style="width:100%; font-size:14px; " />
+
+
+							<p:outputLabel for="txtNumeroStickers"
+								value="#{mensaje.numeroStickers}"
+								style="font-weight:bold; font-size:14px; " />
+
+							<p:inputText id="txtNumeroStickers"
+								value="#{administrarDespacho.despachoTransaccion.numeroStickers}"
+								label="#{mensaje.numeroStickers}" disabled="true"
+								style="width:100%; font-size:14px; " />
+
+
+							<p:outputLabel for="txtNumeroSellos"
+								value="#{mensaje.numeroSellos}"
+								style="font-weight:bold; font-size:14px; " />
+
+							<p:inputText id="txtNumeroSellos"
+								value="#{administrarDespacho.despachoTransaccion.numeroSellos}"
+								label="#{mensaje.numeroSellos}" disabled="true"
+								style="width:100%; font-size:14px; " />
+
+						</p:panelGrid>
+					</p:fieldset>
+					<br /> <br />
+					<p:fieldset legend="Datos para informes" toggleable="true"
+						collapsed="true" toggleSpeed="500">
+
+						<p:panelGrid columns="2" cellpadding="0" cellspacing="0"
+							styleClass="ui-panelgrid-blank" style="width:100%">
+
+
+							<p:outputLabel for="calFechaSolicitudCliente"
+								value="Fecha solicitud cliente"
+								style="font-weight:bold; font-size:14px; " />
+
+
+							<p:calendar id="calFechaSolicitudCliente" disabled="true"
+								label="Fecha solicitud cliente"
+								value="#{administrarDespacho.despachoTransaccion.fechaSolicitudCliente}"
+								pattern="dd/MM/yyyy" mask="true" style="font-size:14px; " />
+
+
+
+
+
+							<p:outputLabel for="calFechaSolicitudPuestoObra"
+								value="Fecha puesto en obra"
+								style="font-weight:bold; font-size:14px; " />
+
+
+							<p:calendar id="calFechaSolicitudPuestoObra" disabled="true"
+								label="Fecha puesto en obra"
+								value="#{administrarDespacho.despachoTransaccion.fechaPuestoObra}"
+								pattern="dd/MM/yyyy" mask="true" style="font-size:14px; " />
+
+
+
+
+
+							<p:outputLabel for="lstCumple" value="Cumple"
+								style="font-weight:bold; font-size:14px; " />
+
+
+
+							<p:selectBooleanCheckbox disabled="true"
+								value="#{administrarDespacho.despachoTransaccion.tCumple}"
+								label="Cumple" id="lstCumple" />
+
+
+
+
+
+						</p:panelGrid>
+
+					</p:fieldset>
+					<br />
+					<p:fieldset legend="Causas de retraso" toggleable="true"
+						collapsed="true" toggleSpeed="500">
+						<p:outputPanel id="pnlCausas">
+							<p:panelGrid columns="2" cellpadding="0" cellspacing="0"
+								styleClass="ui-panelgrid-blank" style="width:100%">
+
+
+								<p:outputLabel for="txtProduccion" value="Producción"
+									style="font-weight:bold; font-size:14px; " />
+
+
+								<p:inputTextarea
+									value="#{administrarDespacho.despachoTransaccion.produccion}"
+									rows="2" disabled="true" id="txtProduccion" label="Producción"
+									autoResize="false"
+									style="font-size:14px; width:100%; min-height:50px">
+
+									<p:ajax event="change" process="@this" update="pnlCausas"
+										listener="#{administrarDespacho.isMostrarObservacionesCausa(administrarDespacho.despachoTransaccion)}" />
+								</p:inputTextarea>
+
+
+
+								<p:outputLabel for="txtCartera" value="Cartera"
+									style="font-weight:bold; font-size:14px; " />
+
+
+								<p:inputTextarea
+									value="#{administrarDespacho.despachoTransaccion.cartera}"
+									rows="2" id="txtCartera" label="Cartera" autoResize="false"
+									disabled="true"
+									style="font-size:14px; width:100%; min-height:50px">
+
+
+								</p:inputTextarea>
+
+
+
+
+
+								<p:outputLabel for="txtDireccion" value="Dirección técnica"
+									style="font-weight:bold; font-size:14px; " />
+								<p:inputTextarea disabled="true"
+									value="#{administrarDespacho.despachoTransaccion.direccionTecnica}"
+									rows="2" id="txtDireccion" label="Dirección técnica"
+									autoResize="false"
+									style="font-size:14px; width:100%; min-height:50px">
+
+
+								</p:inputTextarea>
+
+
+
+								<p:outputLabel for="txtVentas" value="Ventas"
+									style="font-weight:bold; font-size:14px; " />
+								<p:inputTextarea
+									value="#{administrarDespacho.despachoTransaccion.ventas}"
+									disabled="true" rows="2" id="txtVentas" label="Ventas"
+									autoResize="false"
+									style="font-size:14px; width:100%; min-height:50px">
+
+
+								</p:inputTextarea>
+
+
+
+
+
+
+								<p:outputLabel for="txtMantenimiento" value="Mantenimiento"
+									style="font-weight:bold; font-size:14px; " />
+								<p:inputTextarea disabled="true"
+									value="#{administrarDespacho.despachoTransaccion.mantenimiento}"
+									rows="2" id="txtMantenimiento" label="Mantenimiento"
+									autoResize="false"
+									style="font-size:14px; width:100%; min-height:50px">
+
+
+								</p:inputTextarea>
+
+
+
+
+								<p:outputLabel for="txtClienteCausas" value="Cliente"
+									style="font-weight:bold; font-size:14px; " />
+								<p:inputTextarea
+									value="#{administrarDespacho.despachoTransaccion.clienteCausas}"
+									rows="2" disabled="true" id="txtClienteCausas" label="Cliente"
+									autoResize="false"
+									style="font-size:14px; width:100%; min-height:50px">
+
+								</p:inputTextarea>
+
+
+
+
+
+
+								<p:outputLabel for="txtCompras" value="Compras"
+									style="font-weight:bold; font-size:14px; " />
+								<p:inputTextarea
+									value="#{administrarDespacho.despachoTransaccion.compras}"
+									disabled="true" rows="2" id="txtCompras" label="Compras"
+									autoResize="false"
+									style="font-size:14px; width:100%; min-height:50px">
+
+
+								</p:inputTextarea>
+
+
+
+
+								<p:outputLabel for="txtGestion" value="Gestión Integral"
+									style="font-weight:bold; font-size:14px; " />
+								<p:inputTextarea
+									value="#{administrarDespacho.despachoTransaccion.gestionIntegral}"
+									rows="2" id="txtGestion" label="Gestion Integral"
+									disabled="true" autoResize="false"
+									style="font-size:14px; width:100%; min-height:50px">
+
+
+								</p:inputTextarea>
+
+
+
+
+
+								<p:outputLabel for="txtTransporteCausas" value="Transporte"
+									style="font-weight:bold; font-size:14px; " />
+								<p:inputTextarea
+									value="#{administrarDespacho.despachoTransaccion.transporteCausas}"
+									rows="2" id="txtTransporteCausas" label="Transporte"
+									autoResize="false" disabled="true"
+									style="font-size:14px; width:100%; min-height:50px">
+
+
+								</p:inputTextarea>
+
+
+
+
+								<p:outputPanel>
+									<p:outputLabel for="txtObservacionesRetraso"
+										rendered="#{administrarDespacho.isMostrarObservacionesCausa(administrarDespacho.despachoTransaccion)}"
+										value="Observaciones del restraso"
+										style="font-weight:bold; font-size:14px; " />
+								</p:outputPanel>
+								<p:outputPanel>
+									<p:inputTextarea disabled="true"
+										rendered="#{administrarDespacho.isMostrarObservacionesCausa(administrarDespacho.despachoTransaccion)}"
+										value="#{administrarDespacho.despachoTransaccion.observacionesRetraso}"
+										rows="2" id="txtObservacionesRetraso"
+										label="Observaciones del restraso" autoResize="false"
+										style="font-size:14px; width:100%; min-height:50px">
+
+
+									</p:inputTextarea>
+								</p:outputPanel>
+
+
+
+
+							</p:panelGrid>
+						</p:outputPanel>
+
+					</p:fieldset>
+					<br />
+					<p:fieldset legend="Observaciones internas" toggleable="true"
+						collapsed="true" toggleSpeed="500">
+						<p:outputPanel id="pnlObservacionesInternas">
+							<p:panelGrid columns="1" cellpadding="0" cellspacing="0"
+								styleClass="ui-panelgrid-blank" style="width:100%">
+
+
+								<p:outputLabel for="txtObservacionesInternas"
+									value="Escriba observaciones int. visibles basculas y bahía"
+									style="font-weight:bold; font-size:14px; " />
+
+
+								<p:inputTextarea id="txtObservacionesInternas" rows="7"
+									disabled="true"
+									value="#{administrarDespacho.despachoTransaccion.observacionesInternas}"
+									label="#{mensaje.observaciones}"
+									style="width:100%; font-size:14px; " />
+
+
+							</p:panelGrid>
+						</p:outputPanel>
+					</p:fieldset>
+					<br />
+					<p:fieldset legend="#{mensaje.infoAdicional}" toggleable="true"
+						collapsed="true" toggleSpeed="500">
+
+						<p:panelGrid columns="2" cellpadding="0" cellspacing="0"
+							styleClass="ui-panelgrid-blank" style="width:100%">
+
+							<p:outputLabel for="txtObservaciones"
+								value="#{mensaje.observaciones}"
+								style="font-weight:bold; font-size:14px; " />
+
+							<p:inputTextarea id="txtObservaciones" rows="7" disabled="true"
+								value="#{administrarDespacho.despachoTransaccion.observaciones}"
+								label="#{mensaje.observaciones}"
+								style="width:100%; font-size:14px; " />
+
+						</p:panelGrid>
+					</p:fieldset>
+
+
+
+				</div>
+				<div align="center">
+
+					<p:commandButton id="btnCancelarVisualizacion"
+						style="font-size:14px; font-weight: normal !important;"
+						action="#{administrarDespacho.cancelarDespachoTransaccion('MODAL_VISUALIZACION')}"
+						process="@this" value="#{mensaje.cerrar}" update=":form">
+
+					</p:commandButton>
+
+				</div>
+			</p:outputPanel>
+		</p:dialog>
+
+
+	</h:form>
+</ui:composition>
